@@ -203,6 +203,15 @@ class node:
         
         Parameters
         ----------
+        decision_tree_root: this is the root of the actual decision tree
+                            which is to be pruned and the current node 
+                            resides inside the tree rooted at this node
+        
+        cur_error:  cur_error stores the current minimum error that can 
+                    be achieved by the decision tree rooted at decision 
+                    tree root
+
+        X_valid: Validation set of the data that is used for the pruning 
 
         Returns
         -------
@@ -213,16 +222,21 @@ class node:
         if decision_tree.left!=None: cur_error = min(cur_error, self.left.prune(decision_tree_root, cur_error, X_valid))
         if decision_tree.right!=None: cur_error = min(cur_error, self.right.prune(decision_tree_root, cur_error, X_valid))
 
-        # logic
+        # store the data of the children nodes in temporary variable
         temp_left = self.left
         temp_right = self.right 
         temp_attr = self.attr 
         self.remove_children()
 
+        # calculate the error on the new decision tree
         err,_ = predict(decision_tree_root, X_valid)
 
+        # if the error on the new decision tree increases then
+        # restore the children of the current node
         if err > cur_error:
             self.restore(temp_attr, temp_left, temp_right)
         return min(err, cur_error)
+
+
 
 df = read_data()
