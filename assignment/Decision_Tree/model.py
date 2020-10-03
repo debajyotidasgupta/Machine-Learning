@@ -7,7 +7,7 @@ algorithm and Variance as an measure of impurity
 # Authors: Debajyoti Dasgupta <debajyotidasgupta6@gmail.com>
 #          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
 
-import .utility
+import utility
 
 class node:
     '''
@@ -132,64 +132,133 @@ class node:
         err = min(err, cur_error)
         return err
 
-def variance(data):
+def construct_tree(samples, current_height, max_height, attr_list):
+    
     '''
-    This function is a helper function which helps to calculate the 
-    varince of the data that is given as the input    
+    This function is the main function the handles the construction 
+    of the entire decision tree handling all the steps. This function 
+    implements the ID3 algorithm with the help f the utility functions 
     
     Parameters
     ----------
-    data: array of numbers whose variance is to be calculated
+    samples:    Contains the data samples on the basis of which the 
+                regression tree is to be constructed. This contains 
+                a list of dictionaries where the keys are the attributes
+
+    current_height: this represents the current height upto which the 
+                    tree has already been built
+
+    max_height: this is the constraint, which represents the maximum 
+                height upto which the tree must be built
+
+    attr_list: it is the list of attributess from which we make the 
+                selection of the data
 
     Returns
     -------
-    var: This is the variance of the numbers that are  given as 
-            input in data. Var = (X - mean)^2/N
+    head: the head of he decision tree rooted in the current root
     '''
+
+    # if the max height is reached then return
+    if current_height == max_height or len(samples)==0:
+        return None
+
+    # if we have one data only then store it in the node and 
+    # consider this as the prediction alue for this node also
+    if len(samples)==1:
+        return node('Increase rate', samples[0]['Increase rate'], samples[0]['Increase rate'], 0)
+
+    # select the best attribute to be selected for this node 
+    # with the help of the utility functions
+    attr, split, mse = utility.good_attr(samples, attr_list)
+    samples1, samples2, mean = [], [], 0
     
-    mean, var = 0, 0
-    for i in data: mean+=i
+    for i in samples:
+        mean+=i['Increase rate']
+        if i[attr]<=split: samples1.append(i)
+        else: samples2.append(i)
+
+    # consider the mean as the prediction for the current node
+    mean /= len(samples)
+
+    # recursively build the left and the right children of 
+    # the current node and the return this node as the head 
+    head = node(attr, split, mean, mse)
+    head.left = construct_tree(samples1, current_height+1, max_height, attr_list)
+    head.right = construct_tree(samples2, current_height+1, max_height, attr_list)
+    if head.left==None and head.right==None:
+        head.attr = 'Increase rate'
+        head.split = head.mean
+
+    return head
+
+
+def predict_one(decision_tree, data):
+
+    '''
+    This function is used for prediction of a singe sample
+    In this we do a depth first search through the decision
+    tree with the help of the attribute stored in the nodes 
     
-    # calculate the mean
-    mean /= len(data)
-    for i in data: var+=(i-mean)**2
-    # calculate the variance
-    var /= len(data)  
-    return var  
+    Parameters
+    ----------
+    decision_tree:  this is the root node of tje decision tree that
+                    will help to make the prediction
 
-def good_attr(data, attr_list):
-    best, best_attr, split, mse = -1, '', 0, 0
-    random.shuffle(attr_list)
-    for attr in attr_list:
-        attr_data = [{
-            'val': i[attr], 
-            'Increase rate': i['Increase rate']
-        } for i in data]
+    data:   the dictionary which contains the attribute and thier 
+            corresponding valuies. The prediction will be made 
+            for this data
 
-        local_best, local_val = -1, 0
-        data_left, data_right = [], sorted([i['Increase rate'] for i in attr_data])
-        data_var, data_len = variance(data_right), len(attr_data)
-        left_len, right_len = 0, data_len
+    Returns
+    -------
+    the prediction value ( stored in the node attributes ) when 
+    the leaf node is reached
+    '''
+
+    # if the leaf node is reached thenreturn the prediction 
+    # stored at this node
+    if decision_tree.left==None and decision_tree.right==None:
+        return decision_tree.mean
+
+    # based on the decision either recurse to the left 
+    # or the right half until the leaf node is reached
+    if data[decision_tree.attr]<=decision_tree.split:
+        return predict_one(decision_tree.left, data)
+    return predict_one(decision_tree.right, data)
+
+def predict(decision_tree, data):
+
+    '''
+    This function is used for predistion of a multiple samples
+    In this function we make use of the function predict_one 
+    for each item in the data list
     
-        for i in range(1, len(attr_data)):
-            mid = (attr_data[i-1]['val'] + attr_data[i]['val']) // 2
-            data_left.append(data_right.pop(0))
-            left_len, right_len = left_len+1 , right_len-1
+    Parameters
+    ----------
+    decision_tree:  this is the root node of tje decision tree that
+                    will help to make the prediction
 
-        left_var = variance(data_left)
-        right_var = variance(data_right)
+    data:   the list of dictionaries which contains the attribute 
+            and thier corresponding valuies. The prediction will be 
+            made for each datum in this list of data
 
-        gain = data_var - (left_len/data_len*left_var + right_len/data_len*right_var)
-        if gain>local_best:
-            local_best = gain
-            local_val = mid
+    Returns
+    -------
+    mse: the average mean squared error for each item in the data
+
+    preds: the predictions for the data points in data. The 
+            predictions is returned as a list
+    '''
+
+    mse, preds = 0, []
+    for i in data:
+
+        # make prediction for the current data point
+        val = predict_one(decision_tree, i)
+        # insert the prediction in the prediction array
+        preds.append(val)
+        mse+=(val-i['Increase rate'])**2
     
-        if local_best>best:
-            best = local_best
-            best_attr = attr
-            split = local_val
-            mse = data_var
-
-  return best_attr, split, mse
-
-df = read_data()
+    # calculate the average error
+    mse = mse/len(data)
+    return mse, preds
