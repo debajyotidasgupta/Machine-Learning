@@ -1,122 +1,13 @@
 """
-This python file reads the data from the PercentageIncreaseCOVIDWorldwide.csv
-dataset and then forms regression tree out of it using the ID3 algorithm and
-Variance as an measure of impurity
-"""
+This python file contains the class for the construction of the dcision tree 
+from the input dataset and then forms regression tree out of it using the ID3 
+algorithm and Variance as an measure of impurity
+."""
 
 # Authors: Debajyoti Dasgupta <debajyotidasgupta6@gmail.com>
 #          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
 
-import time
-import random
-import datetime
-import graphviz
-import pandas as pd
-from math import log
-from math import sqrt
-from graphviz import Digraph
-import matplotlib.pyplot as plt
-
-#===============#
-#   READ DATA   #
-#===============#
-
-def read_data():
-    '''
-    Returns
-    -------
-    df : A pandas dataframe consisting of the data
-        read from the 'PercentageIncreaseCOVIDWorldwide.csv
-        csv file
-    '''
-    df = pd.read_csv('PercentageIncreaseCOVIDWorldwide.csv').drop(index=0)
-    return df
-
-def get_date(date):
-    '''
-    Converts the date from a string to a UNIX time-stamp format
-
-    Parameters
-    ----------
-    date : A string representing the given date in the format
-            MM/ DD/ YYYY
-
-    Returns
-    -------
-    unix: Converted date from string to unix format that
-            is accepted by time, i.e a continuous function
-    '''
-    unix = time.mktime(datetime.datetime.strptime(date, "%m/%d/%Y").timetuple())
-    return unix
-
-def build_data(df):
-    '''
-    Converts the data from the pandas data freame format to 
-    array of ddictionary objects
-    
-    Parameters
-    ----------
-    df: A pandas dataframe that contains the values read from the 
-        input csv file. The data frame should have four attributes
-        ["Date", "Confirmed", "Recovered", "Deaths"] and the target
-        attribute, that is "Incease rate", Shape of the df should 
-        be (n , 5)
-
-    Returns
-    -------
-    data: It is the list that consists the values from the dataframe 
-            converted to dictionary objects. Each object in the list 
-            will represent exactly one sample of data. Sape of the
-            data will be => length=n, each object will have 4 keys
-    '''
-    
-    data = []
-    for i in range(1, len(df['Confirmed'])+1):
-        data.append(
-            {
-                'Date':           get_date(df['Date'][i]),
-                'Confirmed':      df['Confirmed'][i],
-                'Recovered':      df['Recovered'][i],
-                'Deaths':         df['Deaths'][i],
-                'Increase rate':  df['Increase rate'][i]
-            }
-        )
-    return data
-
-def train_test_split(df):
-    '''
-    This function will first convert the pandas dataframe 
-    into array of dictionary objects then splits the data into 
-    X_train and X_test using an 80-20 split for training : test
-    
-    Parameters
-    ----------
-    df: A pandas dataframe that contains the values read from the 
-        input csv file. The data frame should have four attributes
-        ["Date", "Confirmed", "Recovered", "Deaths"] and the target
-        attribute, that is "Incease rate", Shape of the df should 
-        be (n , 5)
-
-    Returns
-    -------
-    X_train: [List]Contais the 60% data points collected from the 
-                randomly shuffled dataset which will be used 
-                for training. length=0.6*n
-    
-    X_valid: [List]Contais the 20% data points collected from the 
-                randomly shuffled dataset which will be used 
-                for cross validation. length=0.2*n
-
-    X_test: [List]Contais the 20% data points collected from the 
-                randomly shuffled dataset which will be used 
-                for testing. length=0.2*n
-
-    '''
-    
-    data = build_data(df)
-    random.shuffle(data)
-    X_train, X_valid, X_test = data[:int(0.6*len(data))], data[int(0.6*len(data)):int(0.8*len(data))], data[int(0.8*len(data)):]
-    return X_train, X_valid, X_test
+import .utility
 
 class node:
     '''
@@ -215,12 +106,14 @@ class node:
 
         Returns
         -------
+        err: this is the current minimum error that the tree has achieved 
+                till now
 
         '''
         if self.left==None and self.right==None:
             return 10**18
-        if decision_tree.left!=None: cur_error = min(cur_error, self.left.prune(decision_tree_root, cur_error, X_valid))
-        if decision_tree.right!=None: cur_error = min(cur_error, self.right.prune(decision_tree_root, cur_error, X_valid))
+        if self.left!=None: cur_error = min(cur_error, self.left.prune(decision_tree_root, cur_error, X_valid))
+        if self.right!=None: cur_error = min(cur_error, self.right.prune(decision_tree_root, cur_error, X_valid))
 
         # store the data of the children nodes in temporary variable
         temp_left = self.left
@@ -235,8 +128,68 @@ class node:
         # restore the children of the current node
         if err > cur_error:
             self.restore(temp_attr, temp_left, temp_right)
-        return min(err, cur_error)
+        
+        err = min(err, cur_error)
+        return err
 
+def variance(data):
+    '''
+    This function is a helper function which helps to calculate the 
+    varince of the data that is given as the input    
+    
+    Parameters
+    ----------
+    data: array of numbers whose variance is to be calculated
 
+    Returns
+    -------
+    var: This is the variance of the numbers that are  given as 
+            input in data. Var = (X - mean)^2/N
+    '''
+    
+    mean, var = 0, 0
+    for i in data: mean+=i
+    
+    # calculate the mean
+    mean /= len(data)
+    for i in data: var+=(i-mean)**2
+    # calculate the variance
+    var /= len(data)  
+    return var  
+
+def good_attr(data, attr_list):
+    best, best_attr, split, mse = -1, '', 0, 0
+    random.shuffle(attr_list)
+    for attr in attr_list:
+        attr_data = [{
+            'val': i[attr], 
+            'Increase rate': i['Increase rate']
+        } for i in data]
+
+        local_best, local_val = -1, 0
+        data_left, data_right = [], sorted([i['Increase rate'] for i in attr_data])
+        data_var, data_len = variance(data_right), len(attr_data)
+        left_len, right_len = 0, data_len
+    
+        for i in range(1, len(attr_data)):
+            mid = (attr_data[i-1]['val'] + attr_data[i]['val']) // 2
+            data_left.append(data_right.pop(0))
+            left_len, right_len = left_len+1 , right_len-1
+
+        left_var = variance(data_left)
+        right_var = variance(data_right)
+
+        gain = data_var - (left_len/data_len*left_var + right_len/data_len*right_var)
+        if gain>local_best:
+            local_best = gain
+            local_val = mid
+    
+        if local_best>best:
+            best = local_best
+            best_attr = attr
+            split = local_val
+            mse = data_var
+
+  return best_attr, split, mse
 
 df = read_data()
