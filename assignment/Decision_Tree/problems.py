@@ -132,10 +132,10 @@ if __name__ == '__main__':
 
     print("\n============== SOLVED Q3 ==============\n")
 
-    print("\n============== SOLVING Q3 ==============\n")
+    print("\n============== SOLVING Q4 ==============\n")
     print('\n SAVING =====> \n')
     print_decision_tree( tree )
     print('The image of the graph is saved as [ decision_tree.gv.pdf ]')
-    print("\n============== SOLVED Q3 ==============\n")
+    print("\n============== SOLVED Q4 ==============\n")
     
     plt.show()
