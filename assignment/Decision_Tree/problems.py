@@ -4,13 +4,12 @@ dataset and then forms regression tree out of it using the ID3 algorithm and
 Variance as an measure of impurity
 """
 
-import os
-os.environ["PATH"] += os.pathsep + './env/Lib/site-packages/graphviz/'
 
 # Authors: Debajyoti Dasgupta <debajyotidasgupta6@gmail.com>
 #          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
 
 import time
+import random
 import matplotlib.pyplot as plt
 from utility import train_test_split, read_data, train_valid_split, get_accuracy, print_decision_tree
 from model import construct_tree, predict, node
@@ -81,6 +80,9 @@ def data_print(tree, train, test, valid):
 
 
 if __name__ == '__main__':
+
+    # random.seed(1000)
+    random.seed(100000)
     start = time.time()
 
     print("\n ============= READING DATA ============ \n")
@@ -125,17 +127,17 @@ if __name__ == '__main__':
     print("\n============== SOLVED Q2 ==============\n")
 
     print("\n============== SOLVING Q3 ==============\n")
-    print("[==== BEFORE PRUNING ====] Valid acc: {}, Valid mse: {}, number of nodes = {}".format(get_accuracy(tree, valid), predict(tree, valid)[0], tree.count_node()))
+    print("[==== BEFORE PRUNING ====] Valid acc: {}, Valid mse: {}, number of nodes = {}".format(get_accuracy(tree, valid)*100, predict(tree, valid)[0], tree.count_node()))
     tree.prune(tree, predict(tree, valid)[0], valid)
-    print("[==== AFTER PRUNING ====] Valid acc: {}, Valid mse: {}, number of nodes = {}\n".format(get_accuracy(tree, valid), predict(tree, valid)[0], tree.count_node()))
+    print("[==== AFTER PRUNING ====] Valid acc: {}, Valid mse: {}, number of nodes = {}\n".format(get_accuracy(tree, valid)*100, predict(tree, valid)[0], tree.count_node()))
     data_print(tree, train, test, valid)
 
     print("\n============== SOLVED Q3 ==============\n")
 
-    print("\n============== SOLVING Q3 ==============\n")
+    print("\n============== SOLVING Q4 ==============\n")
     print('\n SAVING =====> \n')
     print_decision_tree( tree )
     print('The image of the graph is saved as [ decision_tree.gv.pdf ]')
-    print("\n============== SOLVED Q3 ==============\n")
+    print("\n============== SOLVED Q4 ==============\n")
     
     plt.show()
