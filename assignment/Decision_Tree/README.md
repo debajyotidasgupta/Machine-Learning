@@ -9,10 +9,22 @@ This directory contains the following files:
 
 # Directions to use the code  
 1. Download this directory into your local machine
-2. Ensure all the necessary dependencies with required version and latest version of Python3 are available (verify with `requirements.txt`)  
-- `pip3 install -r requirements.txt`
-3. Run specific functions with the aid of `problem.py`
-- `python3 problem.py`
+
+2. Ensure all the necessary dependencies with required version and latest version of Python3 are available (verify with `requirements.txt`)  <br>
+ `pip3 install -r requirements.txt`
+
+3. Run specific functions with the aid of `problem.py` <br>
+ `python3 problem.py`
+
+# For giving the input height for the Question 1
+- Using the default full height <br>
+`python3 problems.py`
+
+- Giving input height (say 5) -- height should ne a positive integer or -1 <br>
+`python3 problems.py --height 5`
+
+- For more help regarding the arguments <br>
+`python3 problems.py --help`
 
 # For Windows Users
 1. Make sure Graphviz is installed
