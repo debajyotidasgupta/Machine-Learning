@@ -4,5 +4,5 @@ This cotaines the codes submitted as assignment solutions of **Machine Learning 
 - Session: 2020-21  
 ## Maintainers:  
 ---
-1. Debajyoti Dasgupta (18CS30051)  
+1. [Debajyoti Dasgupta](http://littleangel.ezyro.com/about/) (18CS30051)  
 2. [Siba Smarak Panigrahi](https://sibasmarak.github.io) (18CS10069)
