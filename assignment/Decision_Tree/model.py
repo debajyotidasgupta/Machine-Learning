@@ -132,9 +132,11 @@ class node:
         # calculate the error on the new decision tree
         err, _ = predict(decision_tree_root, X_valid)
 
+        # print(err, cur_error)
+
         # if the error on the new decision tree increases then
         # restore the children of the current node
-        if err - cur_error >= - 0.001:
+        if err > cur_error - 0.2 or decision_tree_root.count_node() <= 5:
             self.restore(temp_attr, temp_left, temp_right)
 
 
