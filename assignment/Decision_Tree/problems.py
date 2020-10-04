@@ -8,6 +8,7 @@ Variance as an measure of impurity
 # Authors: Debajyoti Dasgupta <debajyotidasgupta6@gmail.com>
 #          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
 
+import argparse
 import time
 import random
 import matplotlib.pyplot as plt
@@ -16,6 +17,8 @@ from model import construct_tree, predict, node
 
 
 def randomize_select_best_tree(data, max_height, X_test):
+
+    # print(max_height, len(data), len(X_test))
     if max_height == -1:
         max_height = 300
 
@@ -27,7 +30,7 @@ def randomize_select_best_tree(data, max_height, X_test):
 
     for _ in range(10):
 
-        X_train, X_valid = train_valid_split(data)
+        X_train, X_valid = train_valid_split(data) 
         decision_tree = construct_tree(X_train, 0, max_height, attributes)
 
         test_mse, _ = predict(decision_tree, X_test)
@@ -49,17 +52,17 @@ def randomize_select_best_tree(data, max_height, X_test):
 def randomize_select_best_height_tree(train, X_test):
     mse, height, cur_mse = [], [], 10**18
     decision_tree, ht = None, -1
-    for h in range(1, 13):
+    for h in range(1, 50):
         print("[---- Height {} -----] ".format(h), end = '')
-        decision_tree_sample, train, valid, _, _ = randomize_select_best_tree(train, h, test)
+        decision_tree_sample, temp_train, temp_valid, _, _ = randomize_select_best_tree(train, h, test)
         mse_test = predict(decision_tree_sample, test)[0]
         if mse_test < cur_mse and h > 4: 
             decision_tree = decision_tree_sample
             cur_mse = mse_test
-            X_train = train
-            X_valid = valid
+            X_train = temp_train
+            X_valid = temp_valid
             ht = h
-
+        
         data_print(decision_tree_sample, train, X_test, valid)
         mse.append(mse_test)
         height.append(h)
@@ -85,9 +88,16 @@ def data_print(tree, train, test, valid):
 
 if __name__ == '__main__':
 
-    # random.seed(1000)
     random.seed(100000)
     start = time.time()
+
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--height", help="maximum height of decision tree for Q1")
+    args = parser.parse_args()
+    ht = -1
+    if args.height:
+        ht = args.height
 
     print("\n ============= READING DATA ============ \n")
 
@@ -102,8 +112,8 @@ if __name__ == '__main__':
         len(train), len(test)))
 
     print("============== SOLVING Q1 ==============\n")
-    print("select a height ({greater then 0} or {-1}): ")
-    ht = int(input())
+    # print("select a height ({greater then 0} or {-1}): ")
+    # ht = int(input())
     print("height selected: {}".format(ht if ht != -1 else "Full Tree"))
     print("\n========= TRAINING STARTED =========\n")
 

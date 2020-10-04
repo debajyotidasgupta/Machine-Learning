@@ -315,7 +315,7 @@ def print_decision_tree(dtree):
 
     # create a new Digraph
     f = Digraph('Decision Tree', filename='decision_tree.gv')
-    f.attr(rankdir='LR', size='500,500')
+    f.attr(rankdir='LR', size='1000,500')
 
     # border of the nodes is set to rectangle shape
     f.attr('node', shape='rectangle')
@@ -361,6 +361,8 @@ def r2_score(Y, Y_hat):
     for i, val in enumerate(Y):
         ssr += (val-Y_hat[i])**2
         sst += (val-Y_bar)**2
+
+    if sst==0 : sst = 10**-20
     score = 1-ssr/sst
     return score
 
