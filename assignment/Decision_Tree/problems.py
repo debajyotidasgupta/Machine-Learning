@@ -97,7 +97,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     ht = -1
     if args.height:
-        ht = args.height
+        ht = int(args.height)
 
     print("\n ============= READING DATA ============ \n")
 
