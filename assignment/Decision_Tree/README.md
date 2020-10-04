@@ -20,7 +20,7 @@ This directory contains the following files:
 - Using the default full height <br>
 `python3 problems.py`
 
-- Giving input height (say 5) -- height should ne a positive integer or -1 <br>
+- Giving input height (say 5) -- height should be a positive integer or -1 <br>
 `python3 problems.py --height 5`
 
 - For more help regarding the arguments <br>
