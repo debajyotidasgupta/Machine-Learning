@@ -22,7 +22,7 @@ def randomize_select_best_tree(data, max_height, X_test):
     attributes = ["Confirmed", "Recovered", "Deaths", "Date"]
 
     # set the local variables
-    least_mse, tree, mse_avg = 10**18, None, 0
+    least_mse, tree, mse_avg, acc_avg = 10**18, None, 0, 0
     train, valid = None, None
 
     for _ in range(10):
@@ -31,41 +31,45 @@ def randomize_select_best_tree(data, max_height, X_test):
         decision_tree = construct_tree(X_train, 0, max_height, attributes)
 
         test_mse, _ = predict(decision_tree, X_test)
+        test_acc = get_accuracy(decision_tree, X_test)
 
         if test_mse < least_mse:
             least_mse = test_mse
             mse_avg += test_mse
+            acc_avg += test_acc
             tree = decision_tree
             train = X_train
             valid = X_valid
 
     mse_avg /= 10
-    return tree, train, valid, mse_avg
+    acc_avg /= 10
+    return tree, train, valid, mse_avg, acc_avg
 
 
 def randomize_select_best_height_tree(train, X_test):
     mse, height, cur_mse = [], [], 10**18
-    decision_tree = None
+    decision_tree, ht = None, -1
     for h in range(1, 13):
         print("[---- Height {} -----] ".format(h), end = '')
-        decision_tree_sample, train, valid, _ = randomize_select_best_tree(train, h, test)
+        decision_tree_sample, train, valid, _, _ = randomize_select_best_tree(train, h, test)
         mse_test = predict(decision_tree_sample, test)[0]
         if mse_test < cur_mse and h > 4: 
             decision_tree = decision_tree_sample
             cur_mse = mse_test
             X_train = train
             X_valid = valid
+            ht = h
 
         data_print(decision_tree_sample, train, X_test, valid)
         mse.append(mse_test)
         height.append(h)
 
-    plt.title("mse vs height")
-    plt.ylabel("mse")
+    plt.title("test-mse vs height")
+    plt.ylabel("test-mse")
     plt.xlabel("height")
     plt.plot(height, mse)
 
-    return decision_tree, X_train, X_valid
+    return decision_tree, X_train, X_valid, ht
 
 
 def data_print(tree, train, test, valid):
@@ -75,7 +79,7 @@ def data_print(tree, train, test, valid):
     # print("valid acc: {}, valid mse: {}".format(
     #     round(get_accuracy(tree, valid)*100, 2), round(predict(tree, valid)[0], 2)), end=', ')
 
-    print("test acc: {}, train mse: {}".format(
+    print("test acc: {}, test mse: {}".format(
         round(get_accuracy(tree, test)*100, 2), round(predict(tree, test)[0], 2)))
 
 
@@ -105,9 +109,10 @@ if __name__ == '__main__':
 
     X_train = train
     start = time.time()
-    tree, train, valid, mse_avg = randomize_select_best_tree(train, ht, test)
+    tree, train, valid, mse_avg, acc_avg = randomize_select_best_tree(train, ht, test)
     print("Time elapsed  =  {} ms".format(time.time()-start))
     print("\n ============= TRAINING FINISHED ============ \n")
+    print("Average Test Accuracy: {}\n".format(acc_avg * 100))
     print("Average Test MSE: {}\n".format(mse_avg))
 
     data_print(tree, train, test, valid)
@@ -118,10 +123,10 @@ if __name__ == '__main__':
     print("\n========= TRAINING STARTED =========\n")
 
     start = time.time()
-    tree, train, valid = randomize_select_best_height_tree(train, test)
+    tree, train, valid, ht = randomize_select_best_height_tree(train, test)
     print("Time elapsed  =  {} ms".format(time.time()-start))
     print("\n ============= TRAINING FINISHED ============ \n")
-    print("BEST TREE: ")
+    print("BEST TREE: height = {}".format(ht))
     data_print(tree, train, test, valid)
 
     print("\n============== SOLVED Q2 ==============\n")
