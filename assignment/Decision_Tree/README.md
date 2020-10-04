@@ -9,7 +9,7 @@ This directory contains the following files:
 
 # Directions to use the code  
 1. Download this directory into your local machine
-2. Ensure all the necessary dependencies with required version are available (verify with `requirements.txt`)  
+2. Ensure all the necessary dependencies with required version and latest version of Python3 are available (verify with `requirements.txt`)  
 - `pip3 install -r requirements.txt`
 3. Run specific functions with the aid of `problem.py`
 - `python3 problem.py`
