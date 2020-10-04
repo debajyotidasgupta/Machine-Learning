@@ -136,7 +136,7 @@ class node:
 
         # if the error on the new decision tree increases then
         # restore the children of the current node
-        if err > cur_error - 0.2 or decision_tree_root.count_node() <= 5:
+        if err > cur_error or decision_tree_root.count_node() <= 5:
             self.restore(temp_attr, temp_left, temp_right)
 
 
