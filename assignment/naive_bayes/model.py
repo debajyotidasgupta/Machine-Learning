@@ -1,5 +1,5 @@
 import data_processor
-import utility
+import utils
 
 # Evaluate an algorithm using a cross validation split ==model
 def evaluate_algorithm(dataset, algorithm, n_folds, *args):

@@ -7,7 +7,7 @@ related to the processing of the data
 # Authors: Debajyoti Dasgupta <debajyotidasgupta6@gmail.com>
 #          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
 
-import utility
+import utils
 
 def load_csv(filename): #U
 	dataset = list()
