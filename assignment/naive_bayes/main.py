@@ -172,6 +172,7 @@ if __name__ == '__main__':
     print("\n ============= OUTLIERS REMOVED ============ \n")
     print("train data size: {} \n\n".format(len(train)))
 
+    target = cols.pop(-1)
     print("\n ============= SEQUENTIAL BACKWARD SELECTION STARTED ==============")
     train, new_cols, removed, acc_new = sequential_backward_selection(train_without_outliers, cols, naive_bayes, train_acc)
     print("Time elapsed  =  {} s".format(time.time()-start))
@@ -183,6 +184,9 @@ if __name__ == '__main__':
     print()
     print('==============   NEW FEATURES   ==============')
     pprint(new_cols)
+    print()
+    print('==============   TARGET FEATURE  ==============')
+    pprint(target)
     print()
 
     train = normalize(train)

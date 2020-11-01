@@ -82,7 +82,7 @@ ITERATION 5  ===>   SCORE = 36.206084396467126
 
 MODEL SCORES:
 Train Accuracy: 35.993326790971544
-Test  Accuracy: 35.99736214043462
+Test  Accuracy: 36.106750392464676
 
 
 
@@ -113,7 +113,7 @@ ITERATION 5  ===>   SCORE = 36.73870333988212
 
 MODEL SCORES:
 Train Accuracy: 35.16699410609037
-Test  Accuracy: 24.175824175824175
+Test  Accuracy: 29.67032967032967
 
 NOTE: Plots will be shown after Q3 is finished
 
@@ -197,6 +197,9 @@ Accuracy: 39.225589225589225
  'Admission_Deposit',
  'Stay']
 
+ ==============   TARGET FEATURE  ==============
+'Stay'
+
 Time elapsed  =  2900.797280550003 s
 
  ============= DATA NORMALIZED ============
@@ -221,7 +224,7 @@ ITERATION 5  ===>   SCORE = 39.578947368421055
 
 MODEL SCORES:
 Train Accuracy: 39.578947368421055
-Test  Accuracy: 23.861852433281005
+Test  Accuracy: 30.298273155416013
 
 ========== ALL QUESTIONS SOLVED SUCCESSFULLY !! =========
 TIME TAKEN = 3013.264657497406006 s
