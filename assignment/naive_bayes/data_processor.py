@@ -8,16 +8,13 @@ related to the processing of the data
 #          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
 
 import utils
+import time
+from csv import reader
+from collections import Counter
+from sklearn.preprocessing import LabelEncoder
+from utils import summarize_dataset
+from model import evaluate_algorithm, get_test_accuracy
 
-def load_csv(filename): #U
-	dataset = list()
-	with open(filename, 'r') as file:
-		csv_reader = reader(file)
-		for row in csv_reader:
-			if not row:
-				continue
-			dataset.append(row)
-	return dataset
 
 # get the column index of the items
 def get_column_index(items, cols): #U
@@ -69,11 +66,20 @@ def normalize(dataset):
       dataset[i][col] /= factor
   return dataset
 
-def prepare(dataset, cols):
+def prepare(dataset, cols, start):
+  print("\n ================ HANDLING MISSING DATA ============ \n")
   dataset = handle_missing_data(dataset, cols)
+  print("Time elapsed  =  {} ms".format(time.time()-start))
+  print("\n ================= ENCODING DATASET ================ \n")
   dataset = encoded_dataset(dataset, cols)
+  print("Time elapsed  =  {} ms".format(time.time()-start))
+  print("\n ================= FORMATTING DATA ================= \n")
   dataset = convert_to_float(dataset)
+  print("Time elapsed  =  {} ms".format(time.time()-start))
+  print("\n ============== NORMALIZING DATASET ================ \n")
   dataset = normalize(dataset)
+  print("Time elapsed  =  {} ms".format(time.time()-start))
+  print("\n ============= DATA PROCESSING FINISHED ============ \n\n")
   return dataset
 
 # data_processor
@@ -90,34 +96,40 @@ def remove_outliers(dataset, outlier=1):
   return new_dataset
 
 #data_processor
-def sequential_backward_selection(dataset, cols):
+def sequential_backward_selection(dataset, cols, algorithm, acc):
   vectors = [[item for item in col] for col in zip(*dataset)]
+  removed = []
 
-  all_max, cur_max = -1, -1
+  all_max, cur_max = acc, -1
   cur_label = -1
-  for _ in range(18):
+  for loop in range(17):
     change = False
     cur_max = -1
     cur_label = -1
+    print('\nChecking for the removal of feature {}'.format(loop+1))
 
-    for i in range(len(cols)):
+    for i in range(len(cols)-1):
       new_vectors = [[j for j in i] for i in vectors]
       new_vectors.pop(i)
       new_dataset = [[item for item in col] for col in zip(*new_vectors)]
 
-      score, _ = evaluate_algorithm(X_train, naive_bayes, 1)
-      if cur_max < score[0]:
-        cur_max = score[0]
+      score, _ = evaluate_algorithm(new_dataset, algorithm, 2)
+      _mean = sum(score) / 2
+      if cur_max < _mean:
+        cur_max = _mean
         cur_label = i
 
     if cur_max > all_max:
+      print('Improved Accuracy: {}'.format(cur_max))
       change = True
       all_max = cur_max
-      cols.pop(cur_label)
+      removed.append(cols.pop(cur_label))
+      print('Label -> {} <- Dropped'.format(removed[-1]))
       vectors.pop(cur_label)
 
     if not change:
       break
-
+  
+  print('No more feaures remaining to drop\n')
   new_dataset = [[item for item in col] for col in zip(*vectors)]
-  return new_dataset, cols, all_max
+  return new_dataset, cols, removed, all_max

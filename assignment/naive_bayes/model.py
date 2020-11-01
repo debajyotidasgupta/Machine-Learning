@@ -1,12 +1,51 @@
-import data_processor
-import utils
+"""
+This python file contains the functions for  the
+implementation of the naive bayes algorithm from 
+the input dataset and then return optimal  model
+
+The file also contains the model helper functions
+for  proper  implementation  of  the  naive bayes 
+algorithm
+"""
+
+# Authors: Debajyoti Dasgupta <debajyotidasgupta6@gmail.com>
+#          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
+
+
+from utils import cross_validation_split, accuracy_metric, summarize_dataset, calculate_probability
 
 # Evaluate an algorithm using a cross validation split ==model
-def evaluate_algorithm(dataset, algorithm, n_folds, *args):
+def evaluate_algorithm(dataset, algorithm, n_folds):
+  '''
+  This function is the main evaluation function
+  which collects together all the steps that need
+  to be performed in the naive bayes classifier
+
+  Parameter
+  ---------
+  dataset: the dataset over which naive bayes classifier
+          should be trained
+  
+  algorithms: The  function  handling  the  naive  bayes 
+              algorithm
+
+  n_folds: number  of  folds  for  the cross validaation
+
+  Return:
+  -------
+  scores: The accuracies achieve in each of the n_fold 
+          cross validation steps
+  
+  optimal summary: The model parameters for the optimal
+                    model achieved in cross  validation
+  '''
+  # get the split dataset for the cross validation
   folds = cross_validation_split(dataset, n_folds)
   scores = list()
   global_scores = -1
   optimal_summary = None
+
+  # iterate over each fold one at a time and make it he validation set
   for fold in folds:
     train_set = list(folds)
     train_set.remove(fold)
@@ -16,25 +55,49 @@ def evaluate_algorithm(dataset, algorithm, n_folds, *args):
       row_copy = list(row)
       valid_set.append(row_copy)
       row_copy[-1] = None
-    predicted, summary = algorithm(train_set, valid_set, *args)
+
+    # Run the Naive bayes Algorithm to get the predictions
+    predicted, summary = algorithm(train_set, valid_set)
     actual = [row[-1] for row in fold]
     accuracy = accuracy_metric(actual, predicted)
     
+    # if there is an improvement in accuracy then select this model
     if accuracy > global_scores:
       global_scores = accuracy
       optimal_summary = summary
+
+    # append the accuracy obtained in this iteration in the list of scores
     scores.append(accuracy)
   return scores, optimal_summary
 
 def separate_by_class(dataset):
-	separated = dict()
-	for i in range(len(dataset)):
-		vector = dataset[i]
-		class_value = vector[-1]
-		if (class_value not in separated):
-			separated[class_value] = list()
-		separated[class_value].append(vector)
-	return separated
+  '''
+  This function is used to split  the  input 
+  dataset as per the classes defined by  the 
+  target class. The target class will be the 
+  last column of the dataset
+
+  Parameter
+  ---------
+  dataset: the dataset ove which the split has to
+           be performed
+
+  Return
+  ------
+  split_by_class: A dictionary where keys are   the 
+                  classes of the target feature and 
+                  the items are the  dataset  which 
+                  have the key as their target class
+  '''
+  split_by_class = dict()
+  for i in range(len(dataset)):
+    vector = dataset[i]
+    class_value = vector[-1]
+    if (class_value not in split_by_class):
+      split_by_class[class_value] = list()
+    # inset the datapoint in the respective class
+    split_by_class[class_value].append(vector)
+  return split_by_class
 
 # Split dataset by class then calculate statistics for each row  ====model
 def summarize_by_class(dataset):
