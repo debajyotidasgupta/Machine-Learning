@@ -86,7 +86,7 @@ def cross_validation_split(dataset, n_folds):
 
 def accuracy_metric(actual, predicted):
 	'''
-	This function evaluates the accuracy of predicted values with respect the actual values
+	This function evaluates the accuracy of predicted values with respect to the actual values
 	Accuracy is defined as the number of correct predictions divided by total length of predictions
 	Parameters:
 	-----------
@@ -156,7 +156,7 @@ def summarize_dataset(dataset):
 # Calculate the Gaussian probability distribution function for x 
 def calculate_probability(x, mean, stdev):
 	'''
-    This function returns the probability density of the data point on a Gaussian with given input mean ad standard deviation
+    This function returns the probability density of the data point on a Gaussian with given input mean and standard deviation
     Parameters:
     -----------
     x: data point whose probability density is to be evaluated

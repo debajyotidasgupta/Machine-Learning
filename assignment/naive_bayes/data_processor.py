@@ -51,7 +51,7 @@ def encoded_dataset(dataset, cols,
                       ]):
 
   '''
-  This function encodes the categorical columns in the dataset with LabelEncoder
+  This function encodes the categorical columns in the dataset with LabelEncoder from scikit-learn
   Parameters:
   -----------
   dataset: dataset whose columns are to be encoded
