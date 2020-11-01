@@ -15,11 +15,12 @@ This directory contains the following files:
 # Directions to use the code  
 1. Download this directory into your local machine
 
-2. Ensure all the necessary dependencies with required version and latest version of Python3 are available (verify with `requirements.txt`)  <br>
+2. Copy the file `Train_B.csv` to the directory where the code resides
+
+3. Ensure all the necessary dependencies with required version and latest version of Python3 are available (verify with `requirements.txt`)  <br>
  `pip3 install -r requirements.txt`
 
-3. Run specific functions with the aid of `main.py` <br>
- `python3 main.py`
+4. Run specific functions with the aid of `main.py` <br>
 
 # For giving the input fraction ( the fraction of dataset to be used for the model )
 - Using the default full dataset <br>
