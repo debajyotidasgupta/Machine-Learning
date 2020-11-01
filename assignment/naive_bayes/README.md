@@ -33,15 +33,18 @@ This directory contains the following files:
 `python3 main.py --help`
 
 # For giving the input outlier threshold 
-- If the number of outliers in a data is more than threshold then the data will be dropped<br>
+- If the number of outliers in a sample is more than threshold then the sample will be dropped<br>
 
 - Using the default threshold<br>
 `python3 main.py`
 
 - Default threshold is the maximum value of the outlier in the dataset ( that is 3 for the given dataset )
 
-- Giving input outlier threshold (say 2, that is data points having number of outliers greater than or equal 2 will be dropped) -- outlier should be positive integer (>0) <br>
-`python3 main.py --outlier 2`
+- Giving input outlier threshold    
+  - (say 2, that is samples having number of outliers greater than or equal to 2 will be dropped)   
+  - outlier should be positive integer 
+  
+  `python3 main.py --outlier 2`
 
-- For more help regarding the arguments <br>
+- For more help regarding the arguments  
 `python3 main.py --help`
