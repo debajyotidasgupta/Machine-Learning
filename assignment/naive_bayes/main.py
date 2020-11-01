@@ -36,6 +36,8 @@ if __name__ == '__main__':
     print("\n ============= FEATURES ============ \n\n")
     pprint(cols)
 
+    dataset = dataset[:len(dataset)//100]
+
     print('\n\n\
         /////////////////////////////////\n\
         //                             //\n\
@@ -62,7 +64,7 @@ if __name__ == '__main__':
         ////////////////////////////////\n\
     ')
     for i in range(n_folds):
-        print('ITERATION {}  ===>   SCORE = {}'.format(i,scores[i]))
+        print('ITERATION {}  ===>   SCORE = {}'.format(i+1,scores[i]))
 
     train_acc = sum(scores) / len(scores)
     test_acc = get_test_accuracy(test, summary)
