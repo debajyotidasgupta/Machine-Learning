@@ -30,7 +30,7 @@ This directory contains the following files:
 `python3 main.py --frac 0.1`
 
 - For more help regarding the arguments <br>
-`python3 frac.py --help`
+`python3 main.py --help`
 
 # For giving the input outlier threshold 
 - If the number of outliers in a sample is more than threshold then the sample will be dropped<br>
@@ -42,9 +42,9 @@ This directory contains the following files:
 
 - Giving input outlier threshold    
   - (say 2, that is samples having number of outliers greater than or equal to 2 will be dropped)   
-  - outlier should be positive integer ( > 0)  
+  - outlier should be positive integer 
   
   `python3 main.py --outlier 2`
 
 - For more help regarding the arguments  
-`python3 frac.py --help`
+`python3 main.py --help`
