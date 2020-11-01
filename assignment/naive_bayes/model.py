@@ -99,25 +99,43 @@ def separate_by_class(dataset):
     split_by_class[class_value].append(vector)
   return split_by_class
 
-# Split dataset by class then calculate statistics for each row  ====model
 def summarize_by_class(dataset):
-	separated = separate_by_class(dataset)
-	summaries = dict()
-	for class_value, rows in separated.items():
-		summaries[class_value] = summarize_dataset(rows)
-	return summaries
+  '''
+  This function is used to get the summaries
+  (mean, std dev, # of elem, threshhold) for 
+  each feature corresponding to  each  class
+  as determined by the target feature
+
+  Parameter
+  ---------
+  dataset: Dataset over which the summarization
+           needs to be performed
+  
+  Return
+  ------
+  summaries: the  summaries  corresponding  to 
+             each feature ordered by the class
+             they belong to. (class -> keys)
+  '''
+  separated = separate_by_class(dataset)
+  summaries = dict()
+  for class_value, rows in separated.items():
+    summaries[class_value] = summarize_dataset(rows)
+  return summaries
 
 
-# Calculate the probabilities of predicting each class for a given row  ====model
-def calculate_class_probabilities(summaries, row):
-	total_rows = sum([summaries[label][0][2] for label in summaries])
-	probabilities = dict()
-	for class_value, class_summaries in summaries.items():
-		probabilities[class_value] = summaries[class_value][0][2]/float(total_rows)
-		for i in range(len(class_summaries)):
-			mean, stdev, _, _ = class_summaries[i]
-			probabilities[class_value] *= calculate_probability(row[i], mean, stdev)
-	return probabilities
+def calculate_class_probabilities(summaries, data):
+  '''
+  Helper function to calculate the probabilities o
+  '''
+  total_rows = sum([summaries[label][0][2] for label in summaries])
+  probabilities = dict()
+  for class_value, class_summaries in summaries.items():
+    probabilities[class_value] = summaries[class_value][0][2]/float(total_rows)
+    for i in range(len(class_summaries)):
+      mean, stdev, _, _ = class_summaries[i]
+      probabilities[class_value] *= calculate_probability(data[i], mean, stdev)
+  return probabilities
 
 
 # Predict the class for a given row  model

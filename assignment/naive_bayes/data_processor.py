@@ -69,16 +69,16 @@ def normalize(dataset):
 def prepare(dataset, cols, start):
   print("\n ================ HANDLING MISSING DATA ============ \n")
   dataset = handle_missing_data(dataset, cols)
-  print("Time elapsed  =  {} ms".format(time.time()-start))
+  print("Time elapsed  =  {} s".format(time.time()-start))
   print("\n ================= ENCODING DATASET ================ \n")
   dataset = encoded_dataset(dataset, cols)
-  print("Time elapsed  =  {} ms".format(time.time()-start))
+  print("Time elapsed  =  {} s".format(time.time()-start))
   print("\n ================= FORMATTING DATA ================= \n")
   dataset = convert_to_float(dataset)
-  print("Time elapsed  =  {} ms".format(time.time()-start))
+  print("Time elapsed  =  {} s".format(time.time()-start))
   print("\n ============== NORMALIZING DATASET ================ \n")
   dataset = normalize(dataset)
-  print("Time elapsed  =  {} ms".format(time.time()-start))
+  print("Time elapsed  =  {} s".format(time.time()-start))
   print("\n ============= DATA PROCESSING FINISHED ============ \n\n")
   return dataset
 
