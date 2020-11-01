@@ -1,4 +1,11 @@
-from random import seed, randrange, shuffle
+"""
+This python file contains the utility functions used in the assignment
+"""
+
+# Authors: Debajyoti Dasgupta <debajyotidasgupta6@gmail.com>
+#          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
+
+# import necessary modules from random import seed, randrange, shuffle
 from math import sqrt, exp, pi
 from csv import reader
 
