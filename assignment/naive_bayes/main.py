@@ -1,4 +1,6 @@
 import time
+import argparse
+import random
 import numpy as np
 import  matplotlib.pyplot as plt
 from pprint import pprint
@@ -27,6 +29,13 @@ if __name__ == '__main__':
 
     ######################  Q1  ########################
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--frac", help="Fraction of the dataset to test on (Default 1: Full Data)")
+    args = parser.parse_args()
+    frac = 1.
+    if args.frac:
+        frac = float(args.frac)
+
     filename = 'Train_B.csv'
     print("\n ============= READING DATA ============ \n")
     dataset = load_csv(filename)
@@ -36,6 +45,9 @@ if __name__ == '__main__':
     print("\n ============= FEATURES ============ \n\n")
     pprint(cols)
 
+    if frac < 1.:
+        random.shuffle(dataset)
+        dataset = dataset[:int(frac*len(dataset))]
 
     print('\n\n\
         /////////////////////////////////\n\
@@ -119,6 +131,7 @@ if __name__ == '__main__':
 
     pca = PCA(n_components=13)
     dataset = pca.fit_transform(dataset).tolist()
+    normalize(dataset)
     for i in range(len(dataset)):
         dataset[i].append(train[i][-1])
 
@@ -132,7 +145,7 @@ if __name__ == '__main__':
         ////////////////////////////////\n\
     ')
     for i in range(n_folds):
-        print('ITERATION {}  ===>   SCORE = {}'.format(i,scores[i]))
+        print('ITERATION {}  ===>   SCORE = {}'.format(i+1,scores[i]))
 
     train_acc = sum(scores) / len(scores)
     test_acc = get_test_accuracy(test, summary)
@@ -187,7 +200,7 @@ if __name__ == '__main__':
         ////////////////////////////////\n\
     ')
     for i in range(n_folds):
-        print('ITERATION {}  ===>   SCORE = {}'.format(i,scores[i]))
+        print('ITERATION {}  ===>   SCORE = {}'.format(i+1,scores[i]))
 
     train_acc = sum(scores) / len(scores)
     test_acc = get_test_accuracy(test, summary)
@@ -199,4 +212,4 @@ if __name__ == '__main__':
     print('========== ALL QUESTIONS SOLVED SUCCESSFULLY !! =========')
     print('TIME TAKEN = {} s'.format(time.time()-start))
 
-    plt.show()
+    # plt.show()

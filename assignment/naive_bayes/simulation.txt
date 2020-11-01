@@ -113,7 +113,7 @@ ITERATION 5  ===>   SCORE = 36.73870333988212
 
 MODEL SCORES:
 Train Accuracy: 35.16699410609037
-Test  Accuracy: 11.302982731554161
+Test  Accuracy: 24.175824175824175
 
 NOTE: Plots will be shown after Q3 is finished
 
