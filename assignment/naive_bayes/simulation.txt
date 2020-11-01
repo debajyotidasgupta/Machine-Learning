@@ -133,6 +133,8 @@ train data size: 254750
 
 
 
+============= SEQUENTIAL BACKWARD SELECTION STARTED ==============
+
 Checking for the removal of feature 1
 Improved Accuracy: 36.82659932659932
 Label -> City_Code_Patient <- Dropped
