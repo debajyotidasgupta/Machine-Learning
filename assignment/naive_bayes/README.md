@@ -30,7 +30,7 @@ This directory contains the following files:
 `python3 main.py --frac 0.1`
 
 - For more help regarding the arguments <br>
-`python3 frac.py --help`
+`python3 main.py --help`
 
 # For giving the input outlier threshhold 
 - If the number of outliers in a data is more than threshold then the data will be dropped<br>
@@ -44,4 +44,4 @@ This directory contains the following files:
 `python3 main.py --outlier 2`
 
 - For more help regarding the arguments <br>
-`python3 frac.py --help`
+`python3 main.py --help`
