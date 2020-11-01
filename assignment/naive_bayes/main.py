@@ -22,8 +22,6 @@ def autolabel(rects):
                     textcoords="offset points",
                     ha='center', va='bottom')
 
-
-
 if __name__ == '__main__':
     start = time.time()
 
@@ -117,8 +115,11 @@ if __name__ == '__main__':
     autolabel(plot1)
 
     cumsum = [i for i in var]
+    nc = -1
     for i in range(1,len(cumsum)):
         cumsum[i] += cumsum[i-1]
+        if cumsum[i] >= 0.95 and nc == -1:
+            nc = i+1
 
     fig, ax = plt.subplots(figsize=(15,7))
     plot2 = ax.bar(labels, cumsum)
@@ -130,12 +131,14 @@ if __name__ == '__main__':
     ax.set_xticks(np.arange(len(labels)))
     ax.set_xticklabels(labels)
 
-    ax.axvline('PC13', c='red')
+    ax.axvline('PC'+str(nc), c='red')
     ax.axhline(0.95, c='green')
     ax.text('PC5', 0.95, '0.95', fontsize=15, va='center', ha='center', backgroundcolor='w')
     autolabel(plot2)
 
-    pca = PCA(n_components=13)
+    print('Number of Components selected:{}'.format(nc))
+    print('Variance captured: {}'.format(cumsum[nc-1]))
+    pca = PCA(n_components=nc)
     dataset = pca.fit_transform(dataset).tolist()
     normalize(dataset)
     for i in range(len(dataset)):
@@ -197,7 +200,7 @@ if __name__ == '__main__':
     print('============== REMOVED FEATURES ==============')
     pprint(removed)
     print()
-    print('==============   NEW FEATURES   ==============')
+    print('============   SELECTED FEATURES   ===========')
     pprint(new_cols)
     print()
     print('==============   TARGET FEATURE  ==============')

@@ -93,6 +93,8 @@ Test  Accuracy: 36.106750392464676
         /////////////////////////////////
 
 
+Number of Components selected:13
+Variance captured: 0.9549916988284246
 
 ============== TRAINING STARTED =============
 
@@ -188,7 +190,7 @@ Accuracy: 39.225589225589225
  'Age',
  'Ward_Facility_Code']
 
-==============   NEW FEATURES   ==============
+============   SELECTED FEATURES   ===========
 ['Hospital_code',
  'City_Code_Hospital',
  'Available Extra Rooms in Hospital',
