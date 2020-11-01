@@ -2,7 +2,7 @@ import time
 import argparse
 import random
 import numpy as np
-import  matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from pprint import pprint
 from sklearn.decomposition import PCA
 from data_processor import prepare, normalize,  remove_outliers, sequential_backward_selection
