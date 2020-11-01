@@ -21,7 +21,6 @@ This directory contains the following files:
  `pip3 install -r requirements.txt`
 
 4. Run specific functions with the aid of `main.py` <br>
- `python3 main.py`
 
 # For giving the input fraction ( the fraction of dataset to be used for the model )
 - Using the default full dataset <br>
