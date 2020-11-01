@@ -8,6 +8,7 @@ This python file contains the utility functions used in the assignment
 # import necessary modules from random import seed, randrange, shuffle
 from math import sqrt, exp, pi
 from csv import reader
+from random import shuffle
 
 def load_csv(filename):
 	'''
