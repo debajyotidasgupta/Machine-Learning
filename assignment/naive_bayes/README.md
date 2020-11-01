@@ -31,3 +31,15 @@ This directory contains the following files:
 
 - For more help regarding the arguments <br>
 `python3 frac.py --help`
+
+# For giving the input outlier threshhold 
+- if the number of outliers in a data is more than threshold then data will be dropped<br>
+
+- Using the default full dataset <br>
+`python3 main.py`
+
+- Giving input fraction (say 0.1 that is 10% of the dataset randomly chosen) -- fraction should be between 0 and 1 <br>
+`python3 main.py --frac 0.1`
+
+- For more help regarding the arguments <br>
+`python3 frac.py --help`
