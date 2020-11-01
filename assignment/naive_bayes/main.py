@@ -216,4 +216,4 @@ if __name__ == '__main__':
     print('========== ALL QUESTIONS SOLVED SUCCESSFULLY !! =========')
     print('TIME TAKEN = {} s'.format(time.time()-start))
 
-    # plt.show()
+    plt.show()
