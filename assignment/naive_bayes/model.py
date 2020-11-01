@@ -142,39 +142,103 @@ def calculate_class_probabilities(summaries, data):
 
   Return
   ------
-  
+  probabilities: The  aproiori probability  for each 
+                 class as calculated by the  standard 
+                 formaula and independent assumptions
   '''
   total_rows = sum([summaries[label][0][2] for label in summaries])
   probabilities = dict()
   for class_value, class_summaries in summaries.items():
     probabilities[class_value] = summaries[class_value][0][2]/float(total_rows)
     for i in range(len(class_summaries)):
+      # for each class get the class summaries and store them
       mean, stdev, _, _ = class_summaries[i]
+      # multiply by the likelihood of the data
       probabilities[class_value] *= calculate_probability(data[i], mean, stdev)
   return probabilities
 
 
-# Predict the class for a given row  model
 def predict(summaries, row):
-	probabilities = calculate_class_probabilities(summaries, row)
-	best_label, best_prob = None, -1
-	for class_value, probability in probabilities.items():
-		if best_label is None or probability > best_prob:
-			best_prob = probability
-			best_label = class_value
-	return best_label
+  '''
+  Helper function to make predictions for the 
+  given vector of data (row) and  return  the 
+  class label that should be assigned to this
+  data element  
+  
+  Parameter
+  ---------
+  summaries: the  summaries  ( model  parameters ) 
+             returned by the naive bayes algorithm  
+  row: a single data vector for which the prediction
+       is to be made
+  
+  Return:
+  -------
+  best_label: The class that should be assigned to
+              the input data as per the naive bayes 
+              algorithm
+  '''
+  probabilities = calculate_class_probabilities(summaries, row)
+  best_label, best_prob = None, -1
+  for class_value, probability in probabilities.items():
+    # Selecty the label with the maximum apriori probability
+  	if best_label is None or probability > best_prob:
+  		best_prob = probability
+  		best_label = class_value
+  return best_label
 
-# Naive Bayes Algorithm   model
-def naive_bayes(train, test):
+def naive_bayes(train, valid):
+  '''
+  This is the main function for the NAIVE
+  BAYES ALGORITHM. The following function 
+  handles the sequence of steps for naive
+  bayes model construction and return the
+  model parameters
+
+  Parameter
+  ---------
+  train: the set over which the training needs
+         to take place 
+  
+  valid: the  validation  dataset  that helps in
+         calculating the accuracy of the current 
+         model built
+
+  Return:
+  -------
+  summarize: the summaries or the model parameters
+             built for the current dataset
+
+  predictions: the  predictions  made by the model 
+               for the validation set
+  '''
   summarize = summarize_by_class(train)
   predictions = []
-  for row in test:
+  for row in valid:
+    #for each data item in the validation set get the prediction
     output = predict(summarize, row)
     predictions.append(output)
   return (predictions), summarize
 
-  #model
 def get_test_accuracy(test, summarize):
+  '''
+  Helper function to get the accuracy of
+  the model ove the test dataset
+
+  Parameter:
+  ----------
+  test: the test dataset over which the
+        accuracy  is to  be  calculated
+
+  summarize: the model parameters required 
+             to make the predictions
+
+  Return:
+  -------
+  accuracy: The  accuracy measure  of the model 
+            over the test dataset that is given 
+            in the input 
+  '''
   predictions = []
   for row in test:
     output = predict(summarize, row)
