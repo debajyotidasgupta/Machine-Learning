@@ -31,10 +31,16 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--frac", help="Fraction of the dataset to test on (Default 1: Full Data)")
+    parser.add_argument("--outlier", help="Outlier Threshold for Part 3 (Default 3: Max number of outliers)")
     args = parser.parse_args()
+    
+    # Default values
     frac = 1.
-    if args.frac:
-        frac = float(args.frac)
+    outlier = 3
+    
+    # parse arguments
+    if args.frac: frac = float(args.frac)
+    if args.outlier: outlier = int(args.outlier)
 
     filename = 'Train_B.csv'
     print("\n ============= READING DATA ============ \n")
@@ -167,7 +173,7 @@ if __name__ == '__main__':
         /////////////////////////////////\n\n\
         ')
     
-    train_without_outliers = remove_outliers(train)
+    train_without_outliers = remove_outliers(train, outlier)
     print("Time elapsed  =  {} s".format(time.time()-start))
     print("\n ============= OUTLIERS REMOVED ============ \n")
     print("train data size: {} \n\n".format(len(train)))
