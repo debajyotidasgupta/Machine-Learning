@@ -36,7 +36,6 @@ if __name__ == '__main__':
     print("\n ============= FEATURES ============ \n\n")
     pprint(cols)
 
-    dataset = dataset[:len(dataset)//100]
 
     print('\n\n\
         /////////////////////////////////\n\
