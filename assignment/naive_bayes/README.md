@@ -33,7 +33,7 @@ This directory contains the following files:
 `python3 frac.py --help`
 
 # For giving the input outlier threshhold 
-- if the number of outliers in a data is more than threshold then data will be dropped<br>
+- If the number of outliers in a data is more than threshold then the data will be dropped<br>
 
 - Using the default full dataset <br>
 `python3 main.py`
