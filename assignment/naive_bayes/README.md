@@ -20,3 +20,13 @@ This directory contains the following files:
 
 3. Run specific functions with the aid of `main.py` <br>
  `python3 main.py`
+
+# For giving the input fraction ( the fraction of dataset to be used for the model )
+- Using the default full dataset <br>
+`python3 main.py`
+
+- Giving input fraction (say 0.1 that is 10% of the dataset randomly chosen) -- fraction should be between 0 and 1 <br>
+`python3 main.py --frac 0.1`
+
+- For more help regarding the arguments <br>
+`python3 frac.py --help`
