@@ -126,7 +126,23 @@ def summarize_by_class(dataset):
 
 def calculate_class_probabilities(summaries, data):
   '''
-  Helper function to calculate the probabilities o
+  Helper function to calculate the probabilities of
+  each class given  the  current  data  value. This 
+  function helps in calculating the aposteriori for
+  each class
+
+  Parameter
+  ---------
+  summaries: the summaries of each feature calculated 
+             while  training  the  model on the train 
+             dataset
+
+  data: A unit data vector, for which the class 
+        probabilities need to be calculated
+
+  Return
+  ------
+  
   '''
   total_rows = sum([summaries[label][0][2] for label in summaries])
   probabilities = dict()
