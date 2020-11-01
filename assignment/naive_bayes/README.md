@@ -26,7 +26,7 @@ This directory contains the following files:
 - Using the default full dataset <br>
 `python3 main.py`
 
-- Giving input fraction (say 0.1 that is 10% of the dataset randomly chosen) -- fraction should be between 0 and 1 <br>
+- Giving input fraction (say 0.1, that is 10% of the dataset randomly chosen) -- fraction should be between 0 and 1 <br>
 `python3 main.py --frac 0.1`
 
 - For more help regarding the arguments <br>
@@ -35,11 +35,13 @@ This directory contains the following files:
 # For giving the input outlier threshhold 
 - If the number of outliers in a data is more than threshold then the data will be dropped<br>
 
-- Using the default full dataset <br>
+- Using the default threshold<br>
 `python3 main.py`
 
-- Giving input fraction (say 0.1 that is 10% of the dataset randomly chosen) -- fraction should be between 0 and 1 <br>
-`python3 main.py --frac 0.1`
+- Default threshold is the maximum value of the outlier in the dataset ( that is 3 for the given dataset )
+
+- Giving input outlier threshold (say 2, that is data points having number of outliers greater than or equal 2 will be dropped) -- outlier should be positive integer (>0) <br>
+`python3 main.py --outlier 2`
 
 - For more help regarding the arguments <br>
 `python3 frac.py --help`
