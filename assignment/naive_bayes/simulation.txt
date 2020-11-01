@@ -132,6 +132,9 @@ Time elapsed  =  290.9160990715027 s
 train data size: 254750
 
 
+MODEL SCORES:
+Train Accuracy: 34.53831041257367
+Test  Accuracy: 37.51962323390895
 
 ============= SEQUENTIAL BACKWARD SELECTION STARTED ==============
 

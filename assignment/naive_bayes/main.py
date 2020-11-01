@@ -178,6 +178,15 @@ if __name__ == '__main__':
     print("\n ============= OUTLIERS REMOVED ============ \n")
     print("train data size: {} \n\n".format(len(train)))
 
+    scores, summary = evaluate_algorithm(train_without_outliers, naive_bayes, n_folds)
+    
+    train_acc = sum(scores) / len(scores)
+    test_acc = get_test_accuracy(test, summary)
+
+    print("MODEL SCORES:")
+    print("Train Accuracy: {}".format(train_acc))
+    print("Test  Accuracy: {}\n".format(test_acc))
+
     target = cols.pop(-1)
     print("\n ============= SEQUENTIAL BACKWARD SELECTION STARTED ==============")
     train, new_cols, removed, acc_new = sequential_backward_selection(train_without_outliers, cols, naive_bayes, train_acc)
