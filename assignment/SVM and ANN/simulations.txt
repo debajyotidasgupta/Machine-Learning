@@ -119,5 +119,77 @@ Time elapsed  =  329.0443480014801 ms
         #          ANN CLASSIFIER            #
         #                                    #
         ######################################
-        
 
+
+mapper = {
+        '1': 'no hidden layers',
+        '2': '1 hidden layer with 2 nodes',
+        '3': '1 hidden layer with 6 nodes',
+        '4': '2 hidden layers with 2 and 3 nodes respectively',
+        '5': '2 hidden layers with 3 and 2 nodes respectively'
+    }
+
+Size of input: 41
+Size of output: 1
+All the following results with learning rate = 0.0001
+
+
+        ###############################
+        ##   Activaton : Logistic    ##
+        ###############################
+
+
+With 0 hidden layer
+-------------------
+Accuracy:       0.678
+
+With 1 hidden layer with 2 nodes
+--------------------------------
+Accuracy:       0.322
+
+With 1 hidden layer with 6 nodes
+--------------------------------
+Accuracy:       0.678
+
+With 2 hidden layers with 2 and 3 nodes respectively
+----------------------------------------------------
+Accuracy:       0.322
+
+With 2 hidden layers with 3 and 2 nodes respectively
+----------------------------------------------------
+Accuracy:       0.322
+
+
+Time elapsed  =  3.385537624359131 ms
+
+
+        ###############################
+        ##   Activaton : RELU        ##
+        ###############################
+
+
+With 0 hidden layer
+-------------------
+Accuracy:       0.621
+
+With 1 hidden layer with 2 nodes
+--------------------------------
+Accuracy:       0.678
+
+With 1 hidden layer with 6 nodes
+--------------------------------
+Accuracy:       0.630
+
+With 2 hidden layers with 2 and 3 nodes respectively
+----------------------------------------------------
+Accuracy:       0.664
+
+With 2 hidden layers with 3 and 2 nodes respectively
+----------------------------------------------------
+Accuracy:       0.322
+
+
+Time elapsed  =  5.098087549209595 ms
+
+
+Time elapsed  =  15.560227632522583 ms
