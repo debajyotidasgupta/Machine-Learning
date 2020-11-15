@@ -61,6 +61,16 @@ def best_ker_acc(train_acc_C, test_acc_C, kernel_name_switcher):
 
 
 def plot_scores(scores, mapper, ax):
+    '''
+    function to plot the scores of learning
+    rate versus accuracy for each model
+
+    Parameter
+    ---------
+    scores: dictionary of the accuracies
+    mapper: mapper for te model to integer
+    ax: axis for plotting the data
+    '''
     for idx, key in enumerate(scores.keys()):
         lr = [0.1, 0.01, 0.001, 0.0001, 0.00001]
         ax[idx].plot(lr, list(scores[key].values()))
@@ -70,6 +80,17 @@ def plot_scores(scores, mapper, ax):
         ax[idx].set_ylabel('accuracy')
 
 def plot_scores_3(scores, mapper_3):
+    '''
+    function to plot the scores of
+    accuracy versus model for each
+    learning rate
+
+    Parameter
+    ---------
+    scores: dictionary of the accuracies
+    mapper: mapper for te model to integer
+    ax: axis for plotting the data
+    '''
     for key in list(scores.keys()):
         xaxis = [mapper_3[str(i)] for i in list(scores[key].keys())]
         yaxis = list(scores[key].values())
