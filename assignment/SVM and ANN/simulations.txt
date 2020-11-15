@@ -1,0 +1,123 @@
+
+ ============= READING DATA ============ 
+
+Time elapsed  =  0.051833152770996094 ms
+
+ ============= DATA READ ============ 
+
+
+============= SPLITTING DATASET INTO TRAIN TEST ============
+
+Size of X_train = (844, 41)
+Size of X_test = (211, 41)
+Size of Y_train = (844,)
+Size of Y_test = (211,)
+
+Time elapsed  =  0.05386090278625488 ms
+
+============= TRAIN TEST SPLIT COMPLETE ============
+
+===================== SOLVING Q1 ===================
+
+
+        ######################################
+        #                                    #
+        #          SVM CLASSIFIER            #
+        #                                    #
+        ######################################
+        
+
+
+kernel_name_switcher = {
+        'rbf': 'Radial Basis Function',
+        'linear': 'Linear',
+        'poly': 'Quadratic'
+    }
+
+
+============= IMPLEMENT BINARY SVM CLASSIFIER ===================
+
+--------------------- TRAIN ACCURACY --------------------
+{'rbf': 0.8139810426540285, 'linear': 0.8981042654028436, 'quadratic': 0.7902843601895735}
+
+
+--------------------- TEST ACCURACY --------------------
+{'rbf': 0.8293838862559242, 'linear': 0.8720379146919431, 'quadratic': 0.8151658767772512}
+
+Time elapsed  =  0.24135899543762207 ms
+
+
+============= FINDING BEST C VALUER FOR SVM CLASSIFIER ==========
+
+C 	     Train accuracy   Test accuracy
+---------------------------------------------------
+
+Radial Basis Function:
+
+0.001		0.693		0.735
+0.01		0.693		0.735
+0.1		0.693		0.735
+1.0		0.814		0.829
+10.0		0.864		0.848
+100.0		0.910		0.844
+1000.0		0.943		0.810
+10000.0		0.977		0.829
+
+Linear:
+
+0.001		0.767		0.796
+0.01		0.857		0.867
+0.1		0.884		0.863
+1.0		0.898		0.872
+10.0		0.898		0.863
+100.0		0.895		0.858
+1000.0		0.896		0.863
+10000.0		0.889		0.867
+
+Quadratic:
+
+0.001		0.693		0.735
+0.01		0.693		0.735
+0.1		0.693		0.735
+1.0		0.790		0.815
+10.0		0.861		0.858
+100.0		0.903		0.877
+1000.0		0.922		0.839
+10000.0		0.948		0.848
+---------------------------------------------------
+Best Accuracies:
+----------------
+
+Radial Basis Function:
+
+Maximum Test Accuracy occurs with C = 10.0
+Corresonding Train Accuracy: 0.864
+Corresonding Test Accuracy: 0.848
+
+Linear:
+
+Maximum Test Accuracy occurs with C = 1.0
+Corresonding Train Accuracy: 0.898
+Corresonding Test Accuracy: 0.872
+
+Quadratic:
+
+Maximum Test Accuracy occurs with C = 100.0
+Corresonding Train Accuracy: 0.903
+Corresonding Test Accuracy: 0.877
+
+Time elapsed  =  329.0443480014801 ms
+
+
+============== SOLVED Q1 ==============
+
+
+============== SOLVING Q2 ==============
+
+        ######################################
+        #                                    #
+        #          ANN CLASSIFIER            #
+        #                                    #
+        ######################################
+        
+
