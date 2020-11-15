@@ -1,7 +1,7 @@
 
  ============= READING DATA ============ 
 
-Time elapsed  =  0.051833152770996094 ms
+Time elapsed  =  0.023935794830322266 ms
 
  ============= DATA READ ============ 
 
@@ -13,7 +13,7 @@ Size of X_test = (211, 41)
 Size of Y_train = (844,)
 Size of Y_test = (211,)
 
-Time elapsed  =  0.05386090278625488 ms
+Time elapsed  =  0.026929855346679688 ms
 
 ============= TRAIN TEST SPLIT COMPLETE ============
 
@@ -38,13 +38,13 @@ kernel_name_switcher = {
 ============= IMPLEMENT BINARY SVM CLASSIFIER ===================
 
 --------------------- TRAIN ACCURACY --------------------
-{'rbf': 0.8139810426540285, 'linear': 0.8981042654028436, 'quadratic': 0.7902843601895735}
+{'rbf': 0.8104265402843602, 'linear': 0.8945497630331753, 'quadratic': 0.7950236966824644}
 
 
 --------------------- TEST ACCURACY --------------------
-{'rbf': 0.8293838862559242, 'linear': 0.8720379146919431, 'quadratic': 0.8151658767772512}
+{'rbf': 0.7677725118483413, 'linear': 0.8530805687203792, 'quadratic': 0.7298578199052133}
 
-Time elapsed  =  0.24135899543762207 ms
+Time elapsed  =  0.1895277500152588 ms
 
 
 ============= FINDING BEST C VALUER FOR SVM CLASSIFIER ==========
@@ -54,59 +54,62 @@ C 	     Train accuracy   Test accuracy
 
 Radial Basis Function:
 
-0.001		0.693		0.735
-0.01		0.693		0.735
-0.1		0.693		0.735
-1.0		0.814		0.829
-10.0		0.864		0.848
-100.0		0.910		0.844
-1000.0		0.943		0.810
-10000.0		0.977		0.829
+0.001		0.714		0.649
+0.01		0.714		0.649
+0.1		0.714		0.649
+1.0		0.810		0.768
+10.0		0.876		0.839
+100.0		0.908		0.877
+1000.0		0.942		0.867
+10000.0		0.975		0.858
+100000.0	0.992		0.853
 
 Linear:
 
-0.001		0.767		0.796
-0.01		0.857		0.867
-0.1		0.884		0.863
-1.0		0.898		0.872
-10.0		0.898		0.863
-100.0		0.895		0.858
-1000.0		0.896		0.863
-10000.0		0.889		0.867
+0.001		0.781		0.706
+0.01		0.863		0.829
+0.1		0.890		0.848
+1.0		0.895		0.853
+10.0		0.899		0.853
+100.0		0.906		0.848
+1000.0		0.905		0.853
+10000.0		0.882		0.853
+100000.0	0.885		0.867
 
 Quadratic:
 
-0.001		0.693		0.735
-0.01		0.693		0.735
-0.1		0.693		0.735
-1.0		0.790		0.815
-10.0		0.861		0.858
-100.0		0.903		0.877
-1000.0		0.922		0.839
-10000.0		0.948		0.848
+0.001		0.714		0.649
+0.01		0.714		0.649
+0.1		0.714		0.649
+1.0		0.795		0.730
+10.0		0.867		0.825
+100.0		0.916		0.872
+1000.0		0.925		0.872
+10000.0		0.953		0.872
+100000.0	0.973		0.853
 ---------------------------------------------------
 Best Accuracies:
 ----------------
 
 Radial Basis Function:
 
-Maximum Test Accuracy occurs with C = 10.0
-Corresponding Train Accuracy: 0.864
-Corresponding Test Accuracy: 0.848
+Maximum Test Accuracy occurs with C = 100.0
+Corresponding Train Accuracy: 0.908
+Corresponding Test Accuracy: 0.877
 
 Linear:
 
-Maximum Test Accuracy occurs with C = 1.0
-Corresponding Train Accuracy: 0.898
-Corresponding Test Accuracy: 0.872
+Maximum Test Accuracy occurs with C = 100000.0
+Corresponding Train Accuracy: 0.885
+Corresponding Test Accuracy: 0.867
 
 Quadratic:
 
 Maximum Test Accuracy occurs with C = 100.0
-Corresponding Train Accuracy: 0.903
-Corresponding Test Accuracy: 0.877
+Corresponding Train Accuracy: 0.916
+Corresponding Test Accuracy: 0.872
 
-Time elapsed  =  329.0443480014801 ms
+Time elapsed  =  307.7537944316864 ms
 
 
 ============== SOLVED Q1 ==============
@@ -119,7 +122,7 @@ Time elapsed  =  329.0443480014801 ms
         #          ANN CLASSIFIER            #
         #                                    #
         ######################################
-
+        
 
 mapper = {
         '1': 'no hidden layers',
@@ -132,96 +135,96 @@ mapper = {
 Size of input: 41
 Size of output: 1
 
-All the following results with
-learning rate = 0.0001 and
+All the following results with 
+learning rate = 0.0001 and 
 solver = sgd (stochastic gradient descent)
 
 
         ###############################
         ##   Activaton : Logistic    ##
         ###############################
-
+        
 
 With 0 hidden layer
 -------------------
-Accuracy:       0.858
+Accuracy:	0.720
 
 With 1 hidden layer with 2 nodes
 --------------------------------
-Accuracy:       0.763
+Accuracy:	0.640
 
 With 1 hidden layer with 6 nodes
 --------------------------------
-Accuracy:       0.763
+Accuracy:	0.649
 
 With 2 hidden layers with 2 and 3 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.763
+Accuracy:	0.379
 
 With 2 hidden layers with 3 and 2 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.763
+Accuracy:	0.351
 
 
-Time elapsed  =  1.524888277053833 ms
+Time elapsed  =  309.1600658893585 ms
 
 
         ###############################
         ##   Activaton : RELU        ##
         ###############################
-
+        
 
 With 0 hidden layer
 -------------------
-Accuracy:       0.777
+Accuracy:	0.697
 
 With 1 hidden layer with 2 nodes
 --------------------------------
-Accuracy:       0.275
+Accuracy:	0.365
 
 With 1 hidden layer with 6 nodes
 --------------------------------
-Accuracy:       0.815
+Accuracy:	0.687
 
 With 2 hidden layers with 2 and 3 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.716
+Accuracy:	0.611
 
 With 2 hidden layers with 3 and 2 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.763
+Accuracy:	0.640
 
 
-Time elapsed  =  2.7275807857513428 ms
+Time elapsed  =  310.6889796257019 ms
 
 
         ###############################
         ##   Activaton : TANH        ##
         ###############################
-
+        
 
 With 0 hidden layer
 -------------------
-Accuracy:       0.735
+Accuracy:	0.687
 
 With 1 hidden layer with 2 nodes
 --------------------------------
-Accuracy:       0.763
+Accuracy:	0.588
 
 With 1 hidden layer with 6 nodes
 --------------------------------
-Accuracy:       0.730
+Accuracy:	0.645
 
 With 2 hidden layers with 2 and 3 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.749
+Accuracy:	0.649
 
 With 2 hidden layers with 3 and 2 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.735
+Accuracy:	0.649
 
 
-Time elapsed  =  3.996523141860962 ms
+Time elapsed  =  311.7989776134491 ms
 
 
         #########################################
@@ -230,7 +233,7 @@ Time elapsed  =  3.996523141860962 ms
         ##       (HYPER PARAMETER TUNING)      ##
         ##                                     ##
         #########################################
-
+        
 
 {'activation': 'logistic',
  'alpha': 0.0001,
@@ -257,7 +260,8 @@ Time elapsed  =  3.996523141860962 ms
  'warm_start': False}
 
 
-Time elapsed  =  134.56977105140686 ms
+Time elapsed  =  331.43509459495544 ms
 
 
 ============== SOLVED Q2 ==============
+
