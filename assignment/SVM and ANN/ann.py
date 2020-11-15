@@ -1,3 +1,14 @@
+  
+"""
+This python file  contains  the functions which
+will help in the creation of the ann classifier
+and functions for getting the scores
+"""
+
+# Authors: Debajyoti Dasgupta <debajyotidasgupta6@gmail.com>
+#          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
+
+
 # import modules
 import numpy as np
 import pandas as pd
@@ -15,7 +26,13 @@ def model(X_train, Y_train, hidden_layers=[], activation='logistic', lr=0.0001):
     ----------
     X_train: Training dataset
     Y_train: Target of the training dataset
-    hidden_layers: tuples containing
+    hidden_layers: tuples containing the number of neurons in each layer
+    activation: the activation function used
+    lr: learning rate
+
+    Return
+    ------
+    clf : the mlp classifier built on the input data
     '''
     clf = MLPClassifier(
         hidden_layer_sizes=hidden_layers, 
