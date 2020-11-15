@@ -269,6 +269,20 @@ if __name__ == '__main__':
         best_model = clf
         best_score = clf.score(X_test, Y_test)
     
+    print('\
+        ##########################################################\n\
+        ##                                                      ##\n\
+        ##               PLOTTING DATA                          ##\n\
+        ##                                                      ##\n\
+        ##      1. Learning rate vs accuracy for each model     ##\n\
+        ##         ( 5 plots in top row )                       ##\n\
+        ##                                                      ##\n\
+        ##      2. Model vs accuracy for each learning rate     ##\n\
+        ##         ( 5 plots in bottom row )                    ##\n\
+        ##                                                      ##\n\
+        ##########################################################\n\
+        \n')
+    
     activation = best_model.get_params()['activation']
 
     scores, best_model, best_score = tune_learning_rate(X_train, Y_train, X_test, Y_test, best_model, best_score, activation)
@@ -284,9 +298,10 @@ if __name__ == '__main__':
         wspace = 0.34,
         hspace = 0.383
     )
+
+
     plot_scores(scores, mapper, ax)
     plot_scores_3(scores_3, mapper_3, ax)
-    plt.show()
 
     print('\n\
         #########################################\n\
@@ -300,3 +315,5 @@ if __name__ == '__main__':
 
     print("\n\nTime elapsed  =  {} ms\n".format(time.time()-start))
     print("\n============== SOLVED Q2 ==============\n")
+    
+    plt.show()

@@ -38,11 +38,11 @@ kernel_name_switcher = {
 ============= IMPLEMENT BINARY SVM CLASSIFIER ===================
 
 --------------------- TRAIN ACCURACY --------------------
-{'rbf': 0.8104265402843602, 'linear': 0.8945497630331753, 'quadratic': 0.7950236966824644}
+{'Radial Basis Function': 0.8139810426540285, 'Linear': 0.8874407582938388, 'Quadratic': 0.7962085308056872}
 
 
 --------------------- TEST ACCURACY --------------------
-{'rbf': 0.7677725118483413, 'linear': 0.8530805687203792, 'quadratic': 0.7298578199052133}
+{'Radial Basis Function': 0.8151658767772512, 'Linear': 0.8815165876777251, 'Quadratic': 0.8199052132701422}
 
 Time elapsed  =  0.1895277500152588 ms
 
@@ -225,6 +225,19 @@ Accuracy:	0.649
 
 
 Time elapsed  =  311.7989776134491 ms
+
+        ##########################################################
+        ##                                                      ##
+        ##               PLOTTING DATA                          ##
+        ##                                                      ##
+        ##      1. Learning rate vs accuracy for each model     ##
+        ##         ( 5 plots in top row )                       ##
+        ##                                                      ##
+        ##      2. Model vs accuracy for each learning rate     ##
+        ##         ( 5 plots in bottom row )                    ##
+        ##                                                      ##
+        ##########################################################
+
 
 
         #########################################
