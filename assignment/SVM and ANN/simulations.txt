@@ -1,9 +1,14 @@
 
- ============= READING DATA ============ 
+ ============= READING DATA ============
 
-Time elapsed  =  0.023935794830322266 ms
+Time elapsed  =  0.011005163192749023 s
 
- ============= DATA READ ============ 
+ ============= DATA READ ===============
+
+
+Time elapsed  =  0.033913373947143555 s
+
+ ============= DATA NORMALIZED =========
 
 
 ============= SPLITTING DATASET INTO TRAIN TEST ============
@@ -13,7 +18,7 @@ Size of X_test = (211, 41)
 Size of Y_train = (844,)
 Size of Y_test = (211,)
 
-Time elapsed  =  0.026929855346679688 ms
+Time elapsed  =  0.03893089294433594 s
 
 ============= TRAIN TEST SPLIT COMPLETE ============
 
@@ -44,7 +49,7 @@ kernel_name_switcher = {
 --------------------- TEST ACCURACY --------------------
 {'Radial Basis Function': 0.8151658767772512, 'Linear': 0.8815165876777251, 'Quadratic': 0.8199052132701422}
 
-Time elapsed  =  0.1895277500152588 ms
+Time elapsed  =  0.1895277500152588 s
 
 
 ============= FINDING BEST C VALUER FOR SVM CLASSIFIER ==========
@@ -109,7 +114,7 @@ Maximum Test Accuracy occurs with C = 100.0
 Corresponding Train Accuracy: 0.916
 Corresponding Test Accuracy: 0.872
 
-Time elapsed  =  307.7537944316864 ms
+Time elapsed  =  307.7537944316864 s
 
 
 ============== SOLVED Q1 ==============
@@ -166,7 +171,7 @@ With 2 hidden layers with 3 and 2 nodes respectively
 Accuracy:	0.351
 
 
-Time elapsed  =  309.1600658893585 ms
+Time elapsed  =  309.1600658893585 s
 
 
         ###############################
@@ -195,7 +200,7 @@ With 2 hidden layers with 3 and 2 nodes respectively
 Accuracy:	0.640
 
 
-Time elapsed  =  310.6889796257019 ms
+Time elapsed  =  310.6889796257019 s
 
 
         ###############################
@@ -224,7 +229,7 @@ With 2 hidden layers with 3 and 2 nodes respectively
 Accuracy:	0.649
 
 
-Time elapsed  =  311.7989776134491 ms
+Time elapsed  =  311.7989776134491 s
 
         ##########################################################
         ##                                                      ##
@@ -271,13 +276,13 @@ Time elapsed  =  311.7989776134491 ms
  'validation_fraction': 0.1,
  'verbose': False,
  'warm_start': False}
- 
+
  Train Accuracy: 0.700
 
 Test  Accuracy: 0.706
 
 
-Time elapsed  =  331.43509459495544 ms
+Time elapsed  =  331.43509459495544 s
 
 
 ============== SOLVED Q2 ==============

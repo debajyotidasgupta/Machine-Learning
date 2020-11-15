@@ -33,14 +33,17 @@ if __name__ == '__main__':
     print("\n ============= READING DATA ============ \n")
     data = pd.read_csv('biodeg.csv', sep=';', header=None)
     data[41] = data[41] == 'RB'
+    print("Time elapsed  =  {} s".format(time.time()-start))
+    print("\n ============= DATA READ =============== \n\n")
+    
     scaler = StandardScaler()
     data[:41] = scaler.fit_transform(data[:41])
-    print("Time elapsed  =  {} ms".format(time.time()-start))
-    print("\n ============= DATA READ ============ \n\n")
+    print("Time elapsed  =  {} s".format(time.time()-start))
+    print("\n ============= DATA NORMALIZED ========= \n\n")
 
     print("============= SPLITTING DATASET INTO TRAIN TEST ============\n")
     X_train, X_test, Y_train, Y_test = split_data(data)
-    print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
+    print("\nTime elapsed  =  {} s\n".format(time.time()-start))
     print("============= TRAIN TEST SPLIT COMPLETE ============\n")
 
     print("===================== SOLVING Q1 ===================\n\n")
@@ -65,13 +68,13 @@ if __name__ == '__main__':
 
     print('============= IMPLEMENT BINARY SVM CLASSIFIER ===================\n')
     train_acc, test_acc = svm_classifiers(X_train, Y_train, X_test, Y_test, kernel_name_switcher, ['rbf', 'linear', 'poly'])
-    print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
+    print("\nTime elapsed  =  {} s\n".format(time.time()-start))
     print('\n============= FINDING BEST C VALUE FOR SVM CLASSIFIER ===========\n')
     train_acc_C, test_acc_C = find_best_C(X_train, Y_train, X_test, Y_test, ['rbf', 'linear', 'poly'], max_C)
     print_ker_acc(train_acc_C, test_acc_C, kernel_name_switcher)
     best_ker_acc(train_acc_C, test_acc_C, kernel_name_switcher)
 
-    print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
+    print("\nTime elapsed  =  {} s\n".format(time.time()-start))
     print("\n============== SOLVED Q1 ==============\n")
 
     print("\n============== SOLVING Q2 ==============\n")
@@ -160,7 +163,7 @@ if __name__ == '__main__':
     print('With 2 hidden layers with 3 and 2 nodes respectively')
     print('----------------------------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-    print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
+    print("\nTime elapsed  =  {} s\n".format(time.time()-start))
     if clf.score(X_test, Y_test) > best_score: 
         best_model = clf
         best_score = clf.score(X_test, Y_test)
@@ -212,7 +215,7 @@ if __name__ == '__main__':
     print('With 2 hidden layers with 3 and 2 nodes respectively')
     print('----------------------------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-    print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
+    print("\nTime elapsed  =  {} s\n".format(time.time()-start))
     if clf.score(X_test, Y_test) > best_score: 
         best_model = clf
         best_score = clf.score(X_test, Y_test)
@@ -264,7 +267,7 @@ if __name__ == '__main__':
     print('With 2 hidden layers with 3 and 2 nodes respectively')
     print('----------------------------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-    print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
+    print("\nTime elapsed  =  {} s\n".format(time.time()-start))
     if clf.score(X_test, Y_test) > best_score: 
         best_model = clf
         best_score = clf.score(X_test, Y_test)
@@ -315,7 +318,7 @@ if __name__ == '__main__':
     print('\nTrain Accuracy:\t{:0.3f}'.format(clf.score(X_train, Y_train)))
     print('\nTest  Accuracy:\t{:0.3f}\n\n'.format(clf.score(X_test, Y_test)))
 
-    print("Time elapsed  =  {} ms\n".format(time.time()-start))
+    print("Time elapsed  =  {} s\n".format(time.time()-start))
     print("\n============== SOLVED Q2 ==============\n")
     
     plt.show()
