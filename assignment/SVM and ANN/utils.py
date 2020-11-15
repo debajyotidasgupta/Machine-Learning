@@ -1,3 +1,12 @@
+  
+"""
+This python file contains the utility functions used in the assignment
+"""
+
+# Authors: Debajyoti Dasgupta <debajyotidasgupta6@gmail.com>
+#          Siba Smarak Panigrahi <sibasmarak.p@gmail.com>
+
+
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import numpy as np
@@ -47,18 +56,18 @@ def best_ker_acc(train_acc_C, test_acc_C, kernel_name_switcher):
         print('\n' + kernel_name_switcher[ker] + ':\n')
         maxc = max(test_acc_C[ker], key=test_acc_C[ker].get)
         print('Maximum Test Accuracy occurs with C = {}'.format(maxc))
-        print('Corresonding Train Accuracy: {:0.3f}'.format(train_acc_C[ker][maxc]))
-        print('Corresonding Test Accuracy: {:0.3f}'.format(test_acc_C[ker][maxc]))
+        print('Corresponding Train Accuracy: {:0.3f}'.format(train_acc_C[ker][maxc]))
+        print('Corresponding Test Accuracy: {:0.3f}'.format(test_acc_C[ker][maxc]))
 
 
-def plot_scores(scores, mapper):
-    for key in list(scores.keys()):
+def plot_scores(scores, mapper, ax):
+    for idx, key in enumerate(scores.keys()):
         lr = [0.1, 0.01, 0.001, 0.0001, 0.00001]
-        plt.plot(lr, list(scores[key].values()))
-        plt.title(mapper[str(key)])
-        plt.xlabel('learning rate')
-        plt.xscale('log')
-        plt.ylabel('accuracy')
+        ax[idx].plot(lr, list(scores[key].values()))
+        ax[idx].set_title(mapper[str(key)])
+        ax[idx].set_xlabel('learning rate')
+        ax[idx].set_xscale('log')
+        ax[idx].set_ylabel('accuracy')
 
 def plot_scores_3(scores, mapper_3):
     for key in list(scores.keys()):
@@ -69,3 +78,4 @@ def plot_scores_3(scores, mapper_3):
         plt.xticks(np.linspace(1,5,5), xaxis, rotation=45)
         plt.xlabel(' (Hidden Layers, units) | units in a tuple')
         plt.ylabel('accuracy')
+        plt.show()

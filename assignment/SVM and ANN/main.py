@@ -2,11 +2,12 @@ import time
 import warnings
 import pandas as pd
 import argparse
+import matplotlib.pyplot as plt
 from pprint import pprint
 from sklearn.preprocessing import StandardScaler
 from utils import split_data, print_ker_acc, best_ker_acc, plot_scores, plot_scores_3
 from svm import svm_classifiers, find_best_C
-from ann import model, tune_learning_rate, best_model
+from ann import model, tune_learning_rate, tune_model
 warnings.filterwarnings("ignore")
 
 if __name__ == '__main__':
@@ -84,10 +85,10 @@ if __name__ == '__main__':
 
     mapper = {
         '1': 'no hidden layers',
-        '2': '1 hidden layer with 2 nodes',
-        '3': '1 hidden layer with 6 nodes',
-        '4': '2 hidden layers with 2 and 3 nodes respectively',
-        '5': '2 hidden layers with 3 and 2 nodes respectively'
+        '2': '1 hidden layer \nwith 2 nodes',
+        '3': '1 hidden layer \nwith 6 nodes',
+        '4': '2 hidden layers \nwith 2 and 3 nodes \nrespectively',
+        '5': '2 hidden layers \nwith 3 and 2 nodes \nrespectively'
     }
     mapper_3 = {
         '1': '0, ()',
@@ -108,7 +109,9 @@ if __name__ == '__main__':
     print('Size of input: {}'.format(X_train.shape[1]))
     print('Size of output: {}'.format(1))
 
-    print('All the following results with learning rate = 0.0001\n')
+    print('\nAll the following results with \nlearning rate = 0.0001 and \nsolver = sgd (stochastic gradient descent)\n')
+    best_model = None
+    best_score = -1
 
     print("\n\
         ###############################\n\
@@ -121,32 +124,47 @@ if __name__ == '__main__':
     print('With 0 hidden layer')
     print('-------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
 
     # with 1 hidden layer with 2 nodes
     clf = model(X_train, Y_train, hidden_layers=[2])
     print('With 1 hidden layer with 2 nodes')
     print('--------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
     # with 1 hidden layer with 6 nodes
     clf = model(X_train, Y_train, hidden_layers=[6])
     print('With 1 hidden layer with 6 nodes')
     print('--------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
     # with 2 hidden layers with 2 and 3 nodes respectively
     clf = model(X_train, Y_train, hidden_layers=[2,3])
     print('With 2 hidden layers with 2 and 3 nodes respectively')
     print('----------------------------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
     # with 2 hidden layers with 3 and 2 nodes respectively
     clf = model(X_train, Y_train, hidden_layers=[3,2])
     print('With 2 hidden layers with 3 and 2 nodes respectively')
     print('----------------------------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
     print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
-
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
     print("\n\
         ###############################\n\
         ##   Activaton : RELU        ##\n\
@@ -158,37 +176,118 @@ if __name__ == '__main__':
     print('With 0 hidden layer')
     print('-------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
     # with 1 hidden layer with 2 nodes
     clf = model(X_train, Y_train, hidden_layers=[2],activation='relu')
     print('With 1 hidden layer with 2 nodes')
     print('--------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
     # with 1 hidden layer with 6 nodes
     clf = model(X_train, Y_train, hidden_layers=[6],activation='relu')
     print('With 1 hidden layer with 6 nodes')
     print('--------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
     # with 2 hidden layers with 2 and 3 nodes respectively
     clf = model(X_train, Y_train, hidden_layers=[2,3],activation='relu')
     print('With 2 hidden layers with 2 and 3 nodes respectively')
     print('----------------------------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
-
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
     # with 2 hidden layers with 3 and 2 nodes respectively
     clf = model(X_train, Y_train, hidden_layers=[3,2],activation='relu')
     print('With 2 hidden layers with 3 and 2 nodes respectively')
     print('----------------------------------------------------')
     print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
     print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
-
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
     
+    print("\n\
+        ###############################\n\
+        ##   Activaton : TANH        ##\n\
+        ###############################\n\
+        \n")
     
-    scores = tune_learning_rate(X_train, Y_train, X_test, Y_test)
-    scores_3 = best_model(X_train, Y_train, X_test, Y_test)
+    # with 0 hidden layer
+    clf = model(X_train, Y_train,activation='tanh' )
+    print('With 0 hidden layer')
+    print('-------------------')
+    print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
     
-    plot_scores(scores, mapper)
-    plot_scores_3(scores_3, mapper_3)
+    # with 1 hidden layer with 2 nodes
+    clf = model(X_train, Y_train, hidden_layers=[2],activation='tanh')
+    print('With 1 hidden layer with 2 nodes')
+    print('--------------------------------')
+    print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
+    # with 1 hidden layer with 6 nodes
+    clf = model(X_train, Y_train, hidden_layers=[6],activation='tanh')
+    print('With 1 hidden layer with 6 nodes')
+    print('--------------------------------')
+    print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
+    # with 2 hidden layers with 2 and 3 nodes respectively
+    clf = model(X_train, Y_train, hidden_layers=[2,3],activation='tanh')
+    print('With 2 hidden layers with 2 and 3 nodes respectively')
+    print('----------------------------------------------------')
+    print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
+    # with 2 hidden layers with 3 and 2 nodes respectively
+    clf = model(X_train, Y_train, hidden_layers=[3,2],activation='tanh')
+    print('With 2 hidden layers with 3 and 2 nodes respectively')
+    print('----------------------------------------------------')
+    print('Accuracy:\t{:0.3f}\n'.format(clf.score(X_test, Y_test)))
     print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
+    if clf.score(X_test, Y_test) > best_score: 
+        best_model = clf
+        best_score = clf.score(X_test, Y_test)
+    
+    activation = best_model.get_params()['activation']
+
+    scores, best_model, best_score = tune_learning_rate(X_train, Y_train, X_test, Y_test, best_model, best_score, activation)
+    scores_3, best_model, best_score = tune_model(X_train, Y_train, X_test, Y_test, best_model, best_score, activation)
+    
+    fig, ax1 = plt.subplots(1, 5, figsize=(20, 100))
+    plot_scores(scores, mapper, ax1)
+    plt.show()
+    plot_scores_3(scores_3, mapper_3)
+
+    print('\n\
+        #########################################\n\
+        ##                                     ##\n\
+        ##          BEST MODEL FOUND           ##\n\
+        ##       (HYPER PARAMETER TUNING)      ##\n\
+        ##                                     ##\n\
+        #########################################\n\
+        \n')
+    pprint(best_model.get_params())
+
+    print("\n\nTime elapsed  =  {} ms\n".format(time.time()-start))
+    print("\n============== SOLVED Q2 ==============\n")

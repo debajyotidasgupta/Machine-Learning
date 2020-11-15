@@ -91,20 +91,20 @@ Best Accuracies:
 Radial Basis Function:
 
 Maximum Test Accuracy occurs with C = 10.0
-Corresonding Train Accuracy: 0.864
-Corresonding Test Accuracy: 0.848
+Corresponding Train Accuracy: 0.864
+Corresponding Test Accuracy: 0.848
 
 Linear:
 
 Maximum Test Accuracy occurs with C = 1.0
-Corresonding Train Accuracy: 0.898
-Corresonding Test Accuracy: 0.872
+Corresponding Train Accuracy: 0.898
+Corresponding Test Accuracy: 0.872
 
 Quadratic:
 
 Maximum Test Accuracy occurs with C = 100.0
-Corresonding Train Accuracy: 0.903
-Corresonding Test Accuracy: 0.877
+Corresponding Train Accuracy: 0.903
+Corresponding Test Accuracy: 0.877
 
 Time elapsed  =  329.0443480014801 ms
 
@@ -131,7 +131,10 @@ mapper = {
 
 Size of input: 41
 Size of output: 1
-All the following results with learning rate = 0.0001
+
+All the following results with
+learning rate = 0.0001 and
+solver = sgd (stochastic gradient descent)
 
 
         ###############################
@@ -141,26 +144,26 @@ All the following results with learning rate = 0.0001
 
 With 0 hidden layer
 -------------------
-Accuracy:       0.678
+Accuracy:       0.858
 
 With 1 hidden layer with 2 nodes
 --------------------------------
-Accuracy:       0.322
+Accuracy:       0.763
 
 With 1 hidden layer with 6 nodes
 --------------------------------
-Accuracy:       0.678
+Accuracy:       0.763
 
 With 2 hidden layers with 2 and 3 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.322
+Accuracy:       0.763
 
 With 2 hidden layers with 3 and 2 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.322
+Accuracy:       0.763
 
 
-Time elapsed  =  3.385537624359131 ms
+Time elapsed  =  1.524888277053833 ms
 
 
         ###############################
@@ -170,26 +173,91 @@ Time elapsed  =  3.385537624359131 ms
 
 With 0 hidden layer
 -------------------
-Accuracy:       0.621
+Accuracy:       0.777
 
 With 1 hidden layer with 2 nodes
 --------------------------------
-Accuracy:       0.678
+Accuracy:       0.275
 
 With 1 hidden layer with 6 nodes
 --------------------------------
-Accuracy:       0.630
+Accuracy:       0.815
 
 With 2 hidden layers with 2 and 3 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.664
+Accuracy:       0.716
 
 With 2 hidden layers with 3 and 2 nodes respectively
 ----------------------------------------------------
-Accuracy:       0.322
+Accuracy:       0.763
 
 
-Time elapsed  =  5.098087549209595 ms
+Time elapsed  =  2.7275807857513428 ms
 
 
-Time elapsed  =  15.560227632522583 ms
+        ###############################
+        ##   Activaton : TANH        ##
+        ###############################
+
+
+With 0 hidden layer
+-------------------
+Accuracy:       0.735
+
+With 1 hidden layer with 2 nodes
+--------------------------------
+Accuracy:       0.763
+
+With 1 hidden layer with 6 nodes
+--------------------------------
+Accuracy:       0.730
+
+With 2 hidden layers with 2 and 3 nodes respectively
+----------------------------------------------------
+Accuracy:       0.749
+
+With 2 hidden layers with 3 and 2 nodes respectively
+----------------------------------------------------
+Accuracy:       0.735
+
+
+Time elapsed  =  3.996523141860962 ms
+
+
+        #########################################
+        ##                                     ##
+        ##          BEST MODEL FOUND           ##
+        ##       (HYPER PARAMETER TUNING)      ##
+        ##                                     ##
+        #########################################
+
+
+{'activation': 'logistic',
+ 'alpha': 0.0001,
+ 'batch_size': 'auto',
+ 'beta_1': 0.9,
+ 'beta_2': 0.999,
+ 'early_stopping': False,
+ 'epsilon': 1e-08,
+ 'hidden_layer_sizes': [6],
+ 'learning_rate': 'constant',
+ 'learning_rate_init': 0.01,
+ 'max_fun': 15000,
+ 'max_iter': 200,
+ 'momentum': 0.9,
+ 'n_iter_no_change': 10,
+ 'nesterovs_momentum': True,
+ 'power_t': 0.5,
+ 'random_state': None,
+ 'shuffle': True,
+ 'solver': 'sgd',
+ 'tol': 0.0001,
+ 'validation_fraction': 0.1,
+ 'verbose': False,
+ 'warm_start': False}
+
+
+Time elapsed  =  134.56977105140686 ms
+
+
+============== SOLVED Q2 ==============
