@@ -7,9 +7,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score as accuracy
 
 
-def svm_classifiers(X_train, Y_train, X_test, Y_test, kernels=['rbf']):
+def svm_classifiers(X_train, Y_train, X_test, Y_test, kernel_name_switcher, kernels=['rbf']):
     '''
     This function takes a list of kernels, trains a SVM classifier and returns the accuracy lists of train and test accuracies
+    
     Parameters:
     -----------
     X_train: Training set data
@@ -17,6 +18,7 @@ def svm_classifiers(X_train, Y_train, X_test, Y_test, kernels=['rbf']):
     X_test: Testing set data
     Y_test: Testing set targets
     kernels: a list of kernels
+
     Returns:
     --------
     train_acc: a dictionary with (kernel, training accuracy) as key-value pairs
@@ -27,10 +29,8 @@ def svm_classifiers(X_train, Y_train, X_test, Y_test, kernels=['rbf']):
     for kernel in kernels:
         classifier = SVC(kernel=kernel, degree=2)
         classifier.fit(X_train, Y_train)
-        if kernel == 'poly':
-            kernel = 'quadratic'
-        train_acc[kernel] = classifier.score(X_train, Y_train)
-        test_acc[kernel] = classifier.score(X_test, Y_test)
+        train_acc[kernel_name_switcher[kernel]] = classifier.score(X_train, Y_train)
+        test_acc[kernel_name_switcher[kernel]] = classifier.score(X_test, Y_test)
     print('--------------------- TRAIN ACCURACY --------------------')
     print(train_acc)
     print('\n')

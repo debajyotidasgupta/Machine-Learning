@@ -64,9 +64,9 @@ if __name__ == '__main__':
     }\n\n')
 
     print('============= IMPLEMENT BINARY SVM CLASSIFIER ===================\n')
-    train_acc, test_acc = svm_classifiers(X_train, Y_train, X_test, Y_test, ['rbf', 'linear', 'poly'])
+    train_acc, test_acc = svm_classifiers(X_train, Y_train, X_test, Y_test, kernel_name_switcher, ['rbf', 'linear', 'poly'])
     print("\nTime elapsed  =  {} ms\n".format(time.time()-start))
-    print('\n============= FINDING BEST C VALUER FOR SVM CLASSIFIER ==========\n')
+    print('\n============= FINDING BEST C VALUE FOR SVM CLASSIFIER ===========\n')
     train_acc_C, test_acc_C = find_best_C(X_train, Y_train, X_test, Y_test, ['rbf', 'linear', 'poly'], max_C)
     print_ker_acc(train_acc_C, test_acc_C, kernel_name_switcher)
     best_ker_acc(train_acc_C, test_acc_C, kernel_name_switcher)
@@ -274,10 +274,19 @@ if __name__ == '__main__':
     scores, best_model, best_score = tune_learning_rate(X_train, Y_train, X_test, Y_test, best_model, best_score, activation)
     scores_3, best_model, best_score = tune_model(X_train, Y_train, X_test, Y_test, best_model, best_score, activation)
     
-    fig, ax1 = plt.subplots(1, 5, figsize=(20, 100))
-    plot_scores(scores, mapper, ax1)
+    fig, ax = plt.subplots(2, 5, figsize=(30, 10))
+    fig.tight_layout(pad=5.0)
+    fig.subplots_adjust(
+        left = 0.062,
+        right = 0.97,
+        bottom = 0.148,
+        top = 0.88,
+        wspace = 0.34,
+        hspace = 0.383
+    )
+    plot_scores(scores, mapper, ax)
+    plot_scores_3(scores_3, mapper_3, ax)
     plt.show()
-    plot_scores_3(scores_3, mapper_3)
 
     print('\n\
         #########################################\n\

@@ -73,13 +73,13 @@ def plot_scores(scores, mapper, ax):
     '''
     for idx, key in enumerate(scores.keys()):
         lr = [0.1, 0.01, 0.001, 0.0001, 0.00001]
-        ax[idx].plot(lr, list(scores[key].values()))
-        ax[idx].set_title(mapper[str(key)])
-        ax[idx].set_xlabel('learning rate')
-        ax[idx].set_xscale('log')
-        ax[idx].set_ylabel('accuracy')
+        ax[0, idx].plot(lr, list(scores[key].values()))
+        ax[0, idx].set_title(mapper[str(key)])
+        ax[0, idx].set_xlabel('learning rate')
+        ax[0, idx].set_xscale('log')
+        ax[0, idx].set_ylabel('accuracy')
 
-def plot_scores_3(scores, mapper_3):
+def plot_scores_3(scores, mapper_3, ax):
     '''
     function to plot the scores of
     accuracy versus model for each
@@ -91,12 +91,12 @@ def plot_scores_3(scores, mapper_3):
     mapper: mapper for te model to integer
     ax: axis for plotting the data
     '''
-    for key in list(scores.keys()):
+    for idx, key in enumerate(list(scores.keys())):
         xaxis = [mapper_3[str(i)] for i in list(scores[key].keys())]
         yaxis = list(scores[key].values())
-        plt.title('learning rate = {:0.5f}'.format(key))
-        plt.plot(np.linspace(1,5,5), yaxis)
-        plt.xticks(np.linspace(1,5,5), xaxis, rotation=45)
-        plt.xlabel(' (Hidden Layers, units) | units in a tuple')
-        plt.ylabel('accuracy')
-        plt.show()
+        ax[1, idx].set_title('learning rate = {:0.5f}'.format(key))
+        ax[1, idx].plot(np.linspace(1,5,5), yaxis)
+        ax[1, idx].set_xticks(np.linspace(1,5,5))
+        ax[1, idx].set_xticklabels(xaxis, rotation = 90)
+        ax[1, idx].set_xlabel(' (Hidden Layers, units) | units in a tuple')
+        ax[1, idx].set_ylabel('accuracy')
