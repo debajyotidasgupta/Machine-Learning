@@ -21,14 +21,14 @@ if __name__ == '__main__':
 
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("--maxc", help="max value of C (log_10) for finding the best C (Default 4: <= 10^4)")
+    parser.add_argument("--maxc", help="max value of C (log_10 and non - negative integer) for finding the best C (Default 4: <= 10^4)")
     args = parser.parse_args()
     
     # Default values
     max_C = 4
 
     # parse arguments
-    if args.maxc: max_C = int(args.maxc)
+    if args.maxc: max_C = max(0, int(args.maxc))
     
     print("\n ============= READING DATA ============ \n")
     data = pd.read_csv('biodeg.csv', sep=';', header=None)
@@ -312,8 +312,10 @@ if __name__ == '__main__':
         #########################################\n\
         \n')
     pprint(best_model.get_params())
+    print('\nTrain Accuracy:\t{:0.3f}'.format(clf.score(X_train, Y_train)))
+    print('\nTest  Accuracy:\t{:0.3f}\n\n'.format(clf.score(X_test, Y_test)))
 
-    print("\n\nTime elapsed  =  {} ms\n".format(time.time()-start))
+    print("Time elapsed  =  {} ms\n".format(time.time()-start))
     print("\n============== SOLVED Q2 ==============\n")
     
     plt.show()

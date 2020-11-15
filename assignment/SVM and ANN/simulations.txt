@@ -271,6 +271,10 @@ Time elapsed  =  311.7989776134491 ms
  'validation_fraction': 0.1,
  'verbose': False,
  'warm_start': False}
+ 
+ Train Accuracy: 0.700
+
+Test  Accuracy: 0.706
 
 
 Time elapsed  =  331.43509459495544 ms
