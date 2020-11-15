@@ -46,6 +46,27 @@ def model(X_train, Y_train, hidden_layers=[], activation='logistic', lr=0.0001):
 
 
 def tune_learning_rate(X_train, Y_train, X_test, Y_test, best_model, best_score, activation):
+    '''
+    This function is used to make models for different 
+    learning  rate and find  the best leaning rate for 
+    the the model
+
+    Parameters
+    ----------
+    X_train: training dataset
+    Y_train: target values for the training data
+    X_test: data for the test dataset
+    Y_test: target values for the test data
+    best_model: best model till now
+    best_score: best scores till now
+    activation: activation function for the model
+
+    Return
+    ------
+    scores: Dictionary for the accuracy versus learning rate for each model
+    best_model: best model found
+    best_score: best score found
+    '''
     lr = [0.1, 0.01, 0.001, 0.0001, 0.00001]
     hidden_layers = [[], [2], [6], [2,3], [3,2]]
     idx = 1
@@ -63,6 +84,26 @@ def tune_learning_rate(X_train, Y_train, X_test, Y_test, best_model, best_score,
     return scores, best_model, best_score
 
 def tune_model(X_train, Y_train, X_test, Y_test, best_model, best_score, activation):
+    '''
+    This function is used to get model versus
+    accuracy values for each learning rate
+
+    Parameters
+    ----------
+    X_train: training dataset
+    Y_train: target values for the training data
+    X_test: data for the test dataset
+    Y_test: target values for the test data
+    best_model: best model till now
+    best_score: best scores till now
+    activation: activation function for the model
+
+    Return
+    ------
+    scores: Dictionary for the accuracy versus model for each learning rate
+    best_model: best model found
+    best_score: best score found
+    '''
     lr = [0.1, 0.01, 0.001, 0.0001, 0.00001]
     hidden_layers = [[], [2], [6], [2,3], [3,2]]
     scores = {}
